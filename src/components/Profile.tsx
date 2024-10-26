@@ -1,48 +1,93 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTheme } from "next-themes";
+import { Moon, Sun, Globe, ChevronRight, Languages, Palette, Repeat, History } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 export const Profile: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { setTheme, theme } = useTheme();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'zh' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   return (
-    <div className="max-w-2xl mx-auto px-4">
-      
+    <div className="max-w-2xl mx-auto px-4 pt-6">
       <Card className="p-4">
         <CardHeader>
-          <CardTitle className="text-left text-4xl">Hello, Simon!</CardTitle>
+          <CardTitle className="text-left text-5xl">Hello, Simon!</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-6 p-4">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">{t('languageSettings')}</h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="english">English</Label>
-                  <Switch id="english" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="chinese">中文</Label>
-                  <Switch id="chinese" />
-                </div>
+        <CardContent className="p-6 pt-2">
+          <div className="space-y-6">
+            <div className="flex items-center space-x-4">
+              <Languages className="h-6 w-6 text-muted-foreground" />
+              <div className="flex-grow flex justify-between items-center">
+                <h3 className="text-lg font-medium">{t('languageSettings')}</h3>
+                <Tabs defaultValue={i18n.language} onValueChange={toggleLanguage}>
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="en">
+                      English
+                    </TabsTrigger>
+                    <TabsTrigger value="zh">
+                      繁體中文
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </div>
             </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-2">{t('themeSettings')}</h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="light">{t('lightTheme')}</Label>
-                  <Switch id="light" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="dark">{t('darkTheme')}</Label>
-                  <Switch id="dark" />
-                </div>
+
+            <Separator className="my-4" />
+        
+            <div className="flex items-center space-x-4">
+              <Palette className="h-6 w-6 text-muted-foreground" />
+              <div className="flex-grow flex justify-between items-center">
+                <h3 className="text-lg font-medium">{t('themeSettings')}</h3>
+                <Tabs defaultValue={theme} onValueChange={setTheme}>
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="light">
+                      <Sun className="mr-2 h-4 w-4" />
+                      {t('themeLight')}
+                    </TabsTrigger>
+                    <TabsTrigger value="dark">
+                      <Moon className="mr-2 h-4 w-4" />
+                      {t('themeDark')}
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </div>
             </div>
+
+            <Separator className="my-4" />
+
+            <div className="flex items-center space-x-4">
+              <Repeat className="h-6 w-6 text-muted-foreground" />
+              <div className="flex-grow flex justify-between items-center">
+                <h3 className="text-lg font-medium">{t('dailyRepeatTodos')}</h3>
+                <Button variant="outline" size="sm">
+                  {t('manage')}
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            <Separator className="my-4" />
+
+            <div className="flex items-center space-x-4">
+              <History className="h-6 w-6 text-muted-foreground" />
+              <div className="flex-grow flex justify-between items-center">
+                <h3 className="text-lg font-medium">{t('history')}</h3>
+                <Button variant="outline" size="sm">
+                  {t('view')}
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
           </div>
         </CardContent>
       </Card>

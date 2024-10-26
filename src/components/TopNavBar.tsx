@@ -16,7 +16,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <header className="sticky pl-1 pr-0 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="relative flex h-16 items-center px-4">
         {/* App Title */}
         <Link to="/" className="flex items-center justify-center">
@@ -27,8 +27,8 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
         <div className="ml-auto flex items-center space-x-4">
           <span className="text-sm hidden md:inline">{currentTime}</span>
           <div className="hidden md:flex items-center space-x-2">
-            <LanguageToggle />
-            <ModeToggle />
+            {/* <LanguageToggle /> */}
+            {/* <ModeToggle /> */}
             <Button
               variant="outline"
               size="icon"

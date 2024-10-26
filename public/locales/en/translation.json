@@ -37,5 +37,11 @@
   "goodMood": "Good",
   "recapPlaceholder": "Enter your recap here...",
   "cancel": "Cancel",
-  "profile": "Profile"
+  "profile": "Profile",
+  "languageSettings": "Language",
+  "themeSettings": "Theme",
+  "dailyRepeatTodos": "Daily repeat todos",
+  "manage": "Manage",
+  "history": "History",
+  "view": "View"
 }

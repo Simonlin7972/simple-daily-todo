@@ -59,7 +59,7 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
   };
 
   return (
-    <Card className="w-full lg:max-w-2xl mb-4 lg:mb-0 shadow-sm rounded-xl">
+    <Card className="w-full lg:max-w-2xl mb-4 lg:mb-0">
       <CardHeader>
         <CardTitle className="typewriter-title">
           {titleText}<span className="caret"></span>

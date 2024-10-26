@@ -41,5 +41,11 @@
   "recapUpdated": "回顧已更新",
   "recapUpdatedDescription": "您的回顧內容已成功更新",
   "cancel": "取消",
-  "profile": "個人資料"
+  "profile": "個人資料",
+  "languageSettings": "語言設定",
+  "themeSettings": "主題模式",
+  "dailyRepeatTodos": "每日重複任務",
+  "manage": "管理設定",
+  "history": "歷史紀錄",
+  "view": "前往瀏覽"
 }
