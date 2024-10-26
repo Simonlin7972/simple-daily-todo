@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { RecapCard } from './RecapCard';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { SharedTabs } from './SharedTabs';
 
 interface RecapData {
   text: string;
@@ -23,7 +24,8 @@ export const DailyReview: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-4">
+      <SharedTabs />
       {recap && <RecapCard recap={recap} onSave={handleSaveRecap} />}
     </div>
   );

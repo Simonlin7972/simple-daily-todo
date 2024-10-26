@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SharedTabs } from './SharedTabs';
 
 import './TodoList.css';
 import sampleData from '../sampleData.json';
@@ -243,6 +244,7 @@ export function TodoList() {
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex flex-col justify-center h-full py-4">
+          <SharedTabs />
           <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto px-4 lg:px-0">
             <TodoPanel
               todos={todos}

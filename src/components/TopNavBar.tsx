@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from "./language-toggle";
 import { ModeToggle } from "./mode-toggle";
 import { MobileMenu } from "./MobileMenu";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { UserCircle } from "lucide-react";
 
@@ -14,38 +13,15 @@ interface TopNavBarProps {
 
 export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
   const { t } = useTranslation();
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const handleTabChange = (value: string) => {
-    if (value === '/') {
-      // 如果切換到 TodoList 頁面，只進行導航，不重置狀態
-      navigate(value);
-    } else {
-      // 對於其他頁面（如 Daily Review），正常導航
-      navigate(value);
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="relative flex h-16 items-center px-4">
         {/* App Title */}
-        <Link to="/" className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+        <Link to="/" className="flex items-center justify-center">
           <span className="font-['Pacifico'] text-2xl font-bold text-primary whitespace-nowrap">{t('appTitle')}</span>
         </Link>
-        
-        {/* Navigation Tabs */}
-        <Tabs value={location.pathname} onValueChange={handleTabChange} className="mr-auto">
-          <TabsList>
-            <TabsTrigger value="/" id="todoListTab">
-              {t('todoList')}
-            </TabsTrigger>
-            <TabsTrigger value="/daily-review" id="dailyReviewTab">
-              {t('dailyReview')}
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
 
         {/* Right side elements: Time, Language Toggle, Mode Toggle, Profile Button, Mobile Menu */}
         <div className="ml-auto flex items-center space-x-4">

@@ -53,7 +53,7 @@ function App() {
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <div className="min-h-screen font-sans antialiased bg-background text-foreground flex flex-col">
           <TopNavBar currentTime={formatTime(currentTime)} />
-          <main className="flex-grow w-full py-8 pb-28 bg-gradient-to-b from-background to-muted">
+          <main className="flex-grow w-full py-4 pb-28 bg-gradient-to-b from-background to-muted">
             <Routes>
               <Route path="/" element={<TodoList />} />
               <Route path="/daily-review" element={<DailyReview />} />
