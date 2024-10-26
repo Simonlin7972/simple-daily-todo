@@ -1,0 +1,48 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "text": "Buy groceries",
+      "completed": false,
+      "type": "todo"
+    },
+    {
+      "id": 2,
+      "text": "Clean the house",
+      "completed": false,
+      "type": "todo"
+    },
+    {
+      "id": 3,
+      "text": "Pay bills",
+      "completed": false,
+      "type": "todo"
+    },
+    {
+      "id": 4,
+      "text": "Exercise",
+      "completed": false,
+      "type": "todo"
+    },
+    {
+      "id": 5,
+      "text": "Read a book",
+      "completed": false,
+      "type": "todo"
+    }
+  ],
+  "completedTodos": [
+    {
+      "id": 6,
+      "text": "Make dinner",
+      "completed": true,
+      "type": "todo"
+    },
+    {
+      "id": 7,
+      "text": "Call a friend",
+      "completed": true,
+      "type": "todo"
+    }
+  ]
+}
