@@ -20,6 +20,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+          title: "group-[.toast]:flex group-[.toast]:items-center group-[.toast]:gap-0",
+          icon: "group-[.toast]:mr-1",
         },
         duration: 1000, // 設置默認持續時間為 1 秒
       }}
