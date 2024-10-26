@@ -1,34 +1,15 @@
 import React, { useState, KeyboardEvent, useEffect, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
-import { GripVertical, Trash2, Edit2, Check, Plus, Undo2, CheckCircle2 } from 'lucide-react';
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Progress } from "@/components/ui/progress";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { TooltipProvider } from "@/components/ui/tooltip";
+
 import './TodoList.css';
 import sampleData from '../sampleData.json';
 import { useTranslation } from 'react-i18next';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { useNavigate } from 'react-router-dom';
+
 import { toast } from 'sonner';
-import { RecapDialog } from './RecapDialog';
 import { TodoItem } from './TodoItem';
 import { CompletedPanel } from './CompletedPanel';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -46,13 +27,11 @@ export function TodoList() {
   const [newTodo, setNewTodo] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText] = useState('');
-  const [hoveringIndex, setHoveringIndex] = useState<number | null>(null);
   const [titleText, setTitleText] = useState('');
   const fullTitle = t('whatDoYouWantToGetDoneToday');
   const [shouldResetTitle, setShouldResetTitle] = useState(false);
   const [transitioning, setTransitioning] = useState<number | null>(null);
   const [targetTasks, setTargetTasks] = useState(10);
-  const navigate = useNavigate();
   const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
 
   const isMobile = window.innerWidth < 768; // 簡單的移動設備檢測
@@ -84,15 +63,17 @@ export function TodoList() {
       const currentLanguage = i18n.language.startsWith('zh') ? 'zh' : 'en';
       const newTodos = sampleData[currentLanguage].todos.map(todo => ({
         ...todo,
-        id: Date.now() + Math.random()
+        id: Date.now() + Math.random(),
+        type: todo.type as 'todo' | 'section'
       }));
       const newCompletedTodos = sampleData[currentLanguage].completedTodos.map(todo => ({
         ...todo,
-        id: Date.now() + Math.random()
+        id: Date.now() + Math.random(),
+        type: todo.type as 'todo' | 'section'
       }));
 
-      setTodos(prevTodos => [...prevTodos, ...newTodos]);
-      setCompletedTodos(prevCompleted => [...prevCompleted, ...newCompletedTodos]);
+      setTodos([...newTodos]);
+      setCompletedTodos([...newCompletedTodos]);
 
       toast.success(t('sampleDataAdded'), {
         description: t('sampleDataAddedDescription'),
@@ -111,7 +92,6 @@ export function TodoList() {
       setNewTodo('');
       setEditingId(null);
       setEditText('');
-      setHoveringIndex(null);
       setShouldResetTitle(prev => !prev); // 觸發標題動畫重置
     };
 
@@ -270,7 +250,7 @@ export function TodoList() {
                   <Button onClick={addTodo} disabled={newTodo.trim() === ''} className="h-14 w-32 font-bold rounded-lg">{t('addTodo')}</Button>
                 </div>
                 <Droppable droppableId="todos">
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
                       {todos.map((todo, index) => (
                         <TodoItem

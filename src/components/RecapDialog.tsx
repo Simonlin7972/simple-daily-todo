@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { toast } from 'sonner';
-import { CheckCircle2, Frown, Meh, Smile } from 'lucide-react';
+import { Frown, Meh, Smile } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
 interface RecapDialogProps {

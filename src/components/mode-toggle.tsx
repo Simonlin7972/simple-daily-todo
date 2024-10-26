@@ -22,7 +22,7 @@ interface ModeToggleProps {
 
 export function ModeToggle({ isMobile = false }: ModeToggleProps) {
   const [mounted, setMounted] = useState(false)
-  const { setTheme, theme } = useTheme()
+  const { setTheme } = useTheme()
   const { t } = useTranslation()
 
   useEffect(() => {
