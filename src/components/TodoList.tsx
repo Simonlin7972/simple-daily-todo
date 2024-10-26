@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import { TodoItem } from './TodoItem';
 import { CompletedPanel } from './CompletedPanel';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { TodoPanel } from './TodoPanel';
 
 interface Todo {
   id: number;
@@ -106,7 +107,13 @@ export function TodoList() {
 
   const addTodo = () => {
     if (newTodo.trim() !== '') {
-      setTodos([...todos, { id: Date.now(), text: newTodo, completed: false, type: 'todo' }]);
+      const newTodoItem: Todo = {
+        id: Date.now(),
+        text: newTodo.trim(),
+        completed: false,
+        type: 'todo'
+      };
+      setTodos(prevTodos => [...prevTodos, newTodoItem]);
       setNewTodo('');
     }
   };
@@ -127,24 +134,24 @@ export function TodoList() {
     const todoToToggle = todos.find(todo => todo.id === id);
     if (todoToToggle && !todoToToggle.completed) {
       setTransitioning(id);
-      setTodos(prevTodos => prevTodos.map(todo =>
+      setTodos((prevTodos: Todo[]) => prevTodos.map((todo: Todo) =>
         todo.id === id ? { ...todo, completed: true } : todo
       ));
       
       setTimeout(() => {
-        setCompletedTodos(prevCompleted => [...prevCompleted, { ...todoToToggle, completed: true }]);
-        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+        setCompletedTodos((prevCompleted: Todo[]) => [...prevCompleted, { ...todoToToggle, completed: true }]);
+        setTodos((prevTodos: Todo[]) => prevTodos.filter((todo: Todo) => todo.id !== id));
         setTransitioning(null);
       }, 300);
     } else if (todoToToggle) {
-      setTodos(prevTodos => prevTodos.map(todo =>
+      setTodos((prevTodos: Todo[]) => prevTodos.map((todo: Todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       ));
     }
   };
 
   const deleteTodo = (id: number) => {
-    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    setTodos((prevTodos: Todo[]) => prevTodos.filter((todo: Todo) => todo.id !== id));
   };
 
   const startEditing = (id: number, text: string, event: React.MouseEvent) => {
@@ -210,19 +217,16 @@ export function TodoList() {
   const restoreTodo = (id: number) => {
     const todoToRestore = completedTodos.find(todo => todo.id === id);
     if (todoToRestore) {
-      setTodos(prevTodos => [...prevTodos, { ...todoToRestore, completed: false }]);
-      setCompletedTodos(prevCompleted => prevCompleted.filter(todo => todo.id !== id));
+      setTodos((prevTodos: Todo[]) => [...prevTodos, { ...todoToRestore, completed: false }]);
+      setCompletedTodos((prevCompleted: Todo[]) => prevCompleted.filter((todo: Todo) => todo.id !== id));
     }
   };
 
   const handleSaveRecap = (recap: string, mood: string) => {
-    // 清除已完成的任務
     setCompletedTodos([]);
     
-    // 將所有未完成的任務標記為已完成
-    setTodos(prevTodos => prevTodos.map(todo => ({ ...todo, completed: true })));
+    setTodos((prevTodos: Todo[]) => prevTodos.map((todo: Todo) => ({ ...todo, completed: true })));
     
-    // 使用 localStorage 來存儲 recap 和 mood
     localStorage.setItem('dailyRecap', JSON.stringify({ text: recap, mood }));
   };
 
@@ -240,61 +244,24 @@ export function TodoList() {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex flex-col justify-center h-full py-4">
           <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto px-4 lg:px-0">
-            <Card className="w-full lg:max-w-xl mb-4 lg:mb-0 shadow-sm rounded-xl">
-              <CardHeader>
-                <CardTitle className="typewriter-title">
-                  {titleText}<span className="caret"></span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex space-x-4 mb-4">
-                  <Input
-                    type="text"
-                    value={newTodo}
-                    onChange={(e) => setNewTodo(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder={t('addTodoPlaceholder')}
-                    className="flex-grow text-md h-14 ml-7 transition-all duration-200 border-2 hover:border-gray-600 dark:hover:border-gray-500 hover:border-2 focus:border-2 focus:border-primary rounded-lg"
-                  />
-                  <Button onClick={addTodo} disabled={newTodo.trim() === ''} className="h-14 w-32 font-bold rounded-lg">{t('addTodo')}</Button>
-                </div>
-                <Droppable droppableId="todos">
-                  {(provided) => (
-                    <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
-                      {todos.map((todo, index) => (
-                        <TodoItem
-                          key={todo.id}
-                          todo={todo}
-                          index={index}
-                          editingId={editingId}
-                          editText={editText}
-                          isMobile={isMobile}
-                          transitioning={transitioning}
-                          toggleTodo={toggleTodo}
-                          startEditing={startEditing}
-                          setEditText={setEditText}
-                          handleEditKeyDown={handleEditKeyDown}
-                          saveEdit={saveEdit}
-                          deleteTodo={deleteTodo}
-                        />
-                      ))}
-                      {provided.placeholder}
-                    </ul>
-                  )}
-                </Droppable>
-                {todos.length > 0 && (
-                  <div className="ml-7">
-                    <Button 
-                      variant="ghost" 
-                      className="w-full mt-2 text-muted-foreground hover:text-foreground transition-colors"
-                      onClick={addSection}
-                    >
-                      + {t('addSection')}
-                    </Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <TodoPanel
+              todos={todos}
+              newTodo={newTodo}
+              editingId={editingId}
+              editText={editText}
+              isMobile={isMobile}
+              transitioning={transitioning}
+              titleText={titleText}
+              setNewTodo={setNewTodo}
+              addTodo={addTodo}
+              toggleTodo={toggleTodo}
+              startEditing={startEditing}
+              setEditText={setEditText}
+              handleEditKeyDown={handleEditKeyDown}
+              saveEdit={saveEdit}
+              deleteTodo={deleteTodo}
+              addSection={addSection}
+            />
             {completedTodos.length > 0 && (
               <CompletedPanel 
                 completedTodos={completedTodos} 
