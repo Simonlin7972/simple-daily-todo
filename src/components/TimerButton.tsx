@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Button } from "./ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../components/ui/popover";
-import { useTranslation } from "react-i18next";
+} from "@/components/ui/popover";
+import { useTranslation } from 'react-i18next';
 
 export function TimerButton() {
   const [isRunning, setIsRunning] = useState(false);
@@ -23,10 +23,8 @@ export function TimerButton() {
   }, [isRunning]);
 
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-      .toString()
-      .padStart(2, "0");
-    const secs = (seconds % 60).toString().padStart(2, "0");
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const secs = (seconds % 60).toString().padStart(2, '0');
     return `${mins}:${secs}`;
   };
 
@@ -46,11 +44,9 @@ export function TimerButton() {
       <PopoverContent className="w-48 mb-1" align="start" side="top">
         <div className="flex flex-col space-y-2">
           <Button variant="outline" onClick={toggleTimer}>
-            {isRunning ? t("pauseTimer") : t("startTimer")}
+            {isRunning ? t('pauseTimer') : t('startTimer')}
           </Button>
-          <Button variant="secondary" onClick={resetTimer}>
-            {t("resetTimer")}
-          </Button>
+          <Button variant="secondary" onClick={resetTimer}>{t('resetTimer')}</Button>
         </div>
       </PopoverContent>
     </Popover>

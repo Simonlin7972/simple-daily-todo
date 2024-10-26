@@ -1,9 +1,9 @@
-import React from "react";
-import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
-import { Button } from "../components/ui/button";
-import { ModeToggle } from "../components/mode-toggle";
-import { LanguageToggle } from "../components/language-toggle";
+import React from 'react';
+import { Menu } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/mode-toggle";
+import { LanguageToggle } from "@/components/language-toggle";
 
 interface MobileMenuProps {
   currentTime: string;

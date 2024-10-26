@@ -1,48 +1,98 @@
 {
-  "todos": [
-    {
-      "id": 1,
-      "text": "Buy groceries",
-      "completed": false,
-      "type": "todo"
-    },
-    {
-      "id": 2,
-      "text": "Clean the house",
-      "completed": false,
-      "type": "todo"
-    },
-    {
-      "id": 3,
-      "text": "Pay bills",
-      "completed": false,
-      "type": "todo"
-    },
-    {
-      "id": 4,
-      "text": "Exercise",
-      "completed": false,
-      "type": "todo"
-    },
-    {
-      "id": 5,
-      "text": "Read a book",
-      "completed": false,
-      "type": "todo"
-    }
-  ],
-  "completedTodos": [
-    {
-      "id": 6,
-      "text": "Make dinner",
-      "completed": true,
-      "type": "todo"
-    },
-    {
-      "id": 7,
-      "text": "Call a friend",
-      "completed": true,
-      "type": "todo"
-    }
-  ]
+  "en": {
+    "todos": [
+      {
+        "id": 1,
+        "text": "Go grocery shopping: buy fresh vegetables, fruits, and ingredients for meal prep this week",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 2,
+        "text": "Deep clean the house: vacuum, mop floors, dust furniture, and organize the living room",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 3,
+        "text": "Pay monthly bills: electricity, water, internet, and credit card statement",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 4,
+        "text": "Exercise for 30 minutes: go for a jog in the park or do a home workout routine",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 5,
+        "text": "Read a chapter of the new novel I bought last week and write a short reflection",
+        "completed": false,
+        "type": "todo"
+      }
+    ],
+    "completedTodos": [
+      {
+        "id": 6,
+        "text": "Prepare a healthy dinner: grilled chicken with roasted vegetables and quinoa",
+        "completed": true,
+        "type": "todo"
+      },
+      {
+        "id": 7,
+        "text": "Call my best friend to catch up and plan our weekend get-together",
+        "completed": true,
+        "type": "todo"
+      }
+    ]
+  },
+  "zh": {
+    "todos": [
+      {
+        "id": 1,
+        "text": "去超市採購：買新鮮蔬菜、水果，以及本週餐點準備所需的食材",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 2,
+        "text": "大掃除：吸塵、拖地、擦拭家具，整理客廳",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 3,
+        "text": "繳交月度帳單：電費、水費、網路費和信用卡帳單",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 4,
+        "text": "運動30分鐘：到公園慢跑或在家做一套健身運動",
+        "completed": false,
+        "type": "todo"
+      },
+      {
+        "id": 5,
+        "text": "閱讀上週買的新小說的一個章節，並寫下簡短的心得",
+        "completed": false,
+        "type": "todo"
+      }
+    ],
+    "completedTodos": [
+      {
+        "id": 6,
+        "text": "準備健康晚餐：烤雞肉配烤蔬菜和藜麥",
+        "completed": true,
+        "type": "todo"
+      },
+      {
+        "id": 7,
+        "text": "打電話給好朋友聊近況，並計劃週末聚會",
+        "completed": true,
+        "type": "todo"
+      }
+    ]
+  }
 }

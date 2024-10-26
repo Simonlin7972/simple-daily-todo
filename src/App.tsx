@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import { TodoList } from "./components/TodoList";
-import { ThemeProvider } from "./components/theme-provider";
-import { TopNavBar } from "./components/TopNavBar";
-import { BottomBar } from "./components/BottomBar";
-import { DailyReview } from "./components/DailyReview";
-import "./App.css";
-import "./i18n";
+import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { TodoList } from './components/TodoList'
+import { ThemeProvider } from "@/components/theme-provider"
+import { TopNavBar } from "@/components/TopNavBar"
+import { BottomBar } from "@/components/BottomBar"
+import { DailyReview } from './components/DailyReview'
+import './App.css'
+import './i18n'
+import { Toaster } from 'sonner'
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -27,11 +23,7 @@ function App() {
   }, []);
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   };
 
   return (
@@ -47,10 +39,11 @@ function App() {
             </Routes>
           </main>
           <BottomBar />
+          <Toaster />
         </div>
       </ThemeProvider>
     </Router>
-  );
-}
+  )
+};
 
 export default App;
