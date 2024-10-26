@@ -39,5 +39,7 @@
   "moodSelectionRequired": "保存回顧前請選擇您的心情",
   "recapPlaceholder": "在這裡寫下你對今天的回顧...",
   "recapUpdated": "回顧已更新",
-  "recapUpdatedDescription": "您的回顧內容已成功更新"
+  "recapUpdatedDescription": "您的回顧內容已成功更新",
+  "cancel": "取消",
+  "profile": "個人資料"
 }

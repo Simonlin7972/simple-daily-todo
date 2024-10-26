@@ -23,7 +23,8 @@ interface Todo {
 
 export function TodoList() {
   const { t, i18n } = useTranslation();
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
+  const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completedTodos', []);
   const [newTodo, setNewTodo] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText] = useState('');
@@ -31,8 +32,7 @@ export function TodoList() {
   const fullTitle = t('whatDoYouWantToGetDoneToday');
   const [shouldResetTitle, setShouldResetTitle] = useState(false);
   const [transitioning, setTransitioning] = useState<number | null>(null);
-  const [targetTasks, setTargetTasks] = useState(10);
-  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
+  const [targetTasks, setTargetTasks] = useLocalStorage<number>('targetTasks', 10);
 
   const isMobile = window.innerWidth < 768; // 簡單的移動設備檢測
 
@@ -127,24 +127,24 @@ export function TodoList() {
     const todoToToggle = todos.find(todo => todo.id === id);
     if (todoToToggle && !todoToToggle.completed) {
       setTransitioning(id);
-      setTodos(todos.map(todo =>
+      setTodos(prevTodos => prevTodos.map(todo =>
         todo.id === id ? { ...todo, completed: true } : todo
       ));
       
       setTimeout(() => {
-        setCompletedTodos([...completedTodos, { ...todoToToggle, completed: true }]);
-        setTodos(todos.filter(todo => todo.id !== id));
+        setCompletedTodos(prevCompleted => [...prevCompleted, { ...todoToToggle, completed: true }]);
+        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
         setTransitioning(null);
       }, 300);
     } else if (todoToToggle) {
-      setTodos(todos.map(todo =>
+      setTodos(prevTodos => prevTodos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       ));
     }
   };
 
   const deleteTodo = (id: number) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
   };
 
   const startEditing = (id: number, text: string, event: React.MouseEvent) => {
@@ -210,8 +210,8 @@ export function TodoList() {
   const restoreTodo = (id: number) => {
     const todoToRestore = completedTodos.find(todo => todo.id === id);
     if (todoToRestore) {
-      setTodos([...todos, { ...todoToRestore, completed: false }]);
-      setCompletedTodos(completedTodos.filter(todo => todo.id !== id));
+      setTodos(prevTodos => [...prevTodos, { ...todoToRestore, completed: false }]);
+      setCompletedTodos(prevCompleted => prevCompleted.filter(todo => todo.id !== id));
     }
   };
 
@@ -220,11 +220,20 @@ export function TodoList() {
     setCompletedTodos([]);
     
     // 將所有未完成的任務標記為已完成
-    setTodos(todos.map(todo => ({ ...todo, completed: true })));
+    setTodos(prevTodos => prevTodos.map(todo => ({ ...todo, completed: true })));
     
     // 使用 localStorage 來存儲 recap 和 mood
     localStorage.setItem('dailyRecap', JSON.stringify({ text: recap, mood }));
   };
+
+  // 在組件卸載時保存數據
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('todos', JSON.stringify(todos));
+      localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+      localStorage.setItem('targetTasks', JSON.stringify(targetTasks));
+    };
+  }, [todos, completedTodos, targetTasks]);
 
   return (
     <TooltipProvider>

@@ -35,5 +35,7 @@
   "badMood": "Bad",
   "neutralMood": "Neutral",
   "goodMood": "Good",
-  "recapPlaceholder": "Enter your recap here..."
+  "recapPlaceholder": "Enter your recap here...",
+  "cancel": "Cancel",
+  "profile": "Profile"
 }

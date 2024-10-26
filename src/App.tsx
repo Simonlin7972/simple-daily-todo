@@ -9,7 +9,7 @@ import { Profile } from './components/Profile'
 import './App.css'
 import './i18n'
 import { Toaster } from "@/components/ui/sonner"
-import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command"
+import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "./components/ui/command"
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
