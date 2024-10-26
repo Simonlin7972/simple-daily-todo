@@ -5,9 +5,10 @@ import { ThemeProvider } from "./components/theme-provider";
 import { TopNavBar } from "./components/TopNavBar"
 import { BottomBar } from "./components/BottomBar"
 import { DailyReview } from './components/DailyReview'
+import { Profile } from './components/Profile'
 import './App.css'
 import './i18n'
-import { Toaster } from 'sonner'
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -35,6 +36,7 @@ function App() {
             <Routes>
               <Route path="/" element={<TodoList />} />
               <Route path="/daily-review" element={<DailyReview />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

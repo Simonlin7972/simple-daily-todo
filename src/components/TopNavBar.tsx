@@ -5,6 +5,8 @@ import { ModeToggle } from "./mode-toggle";
 import { MobileMenu } from "./MobileMenu";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { UserCircle } from "lucide-react";
 
 interface TopNavBarProps {
   currentTime: string;
@@ -45,12 +47,21 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
           </TabsList>
         </Tabs>
 
-        {/* Right side elements: Time, Language Toggle, Mode Toggle, Mobile Menu */}
+        {/* Right side elements: Time, Language Toggle, Mode Toggle, Profile Button, Mobile Menu */}
         <div className="ml-auto flex items-center space-x-4">
           <span className="text-sm hidden md:inline">{currentTime}</span>
           <div className="hidden md:flex items-center space-x-2">
             <LanguageToggle />
             <ModeToggle />
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => navigate('/profile')}
+              className="w-10 h-10"
+            >
+              <UserCircle className="h-[1.2rem] w-[1.2rem]" />
+              <span className="sr-only">{t('profile')}</span>
+            </Button>
           </div>
           <MobileMenu currentTime={currentTime} />
         </div>

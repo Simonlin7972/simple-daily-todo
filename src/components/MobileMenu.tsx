@@ -1,15 +1,20 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, UserCircle } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface MobileMenuProps {
   currentTime: string;
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime }) => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -22,6 +27,16 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime }) => {
           <span className="text-sm">{currentTime}</span>
           <LanguageToggle isMobile={true} />
           <ModeToggle isMobile={true} />
+          <Button
+            variant="outline"
+            className="w-full justify-center"
+            onClick={() => {
+              navigate('/profile');
+            }}
+          >
+            <UserCircle className="mr-2 h-4 w-4" />
+            {t('profile')}
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
