@@ -19,10 +19,22 @@ interface Todo {
   type: 'todo' | 'section';
 }
 
+interface DailyRecap {
+  text: string;
+  mood: string;
+  date?: string;
+}
+
 export function TodoList() {
   const { t, i18n } = useTranslation();
-  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
-  const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completedTodos', []);
+  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []) as [
+    Todo[],
+    React.Dispatch<React.SetStateAction<Todo[]>>
+  ];
+  const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completedTodos', []) as [
+    Todo[],
+    React.Dispatch<React.SetStateAction<Todo[]>>
+  ];
   const [newTodo, setNewTodo] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText] = useState('');
@@ -30,7 +42,10 @@ export function TodoList() {
   const fullTitle = t('whatDoYouWantToGetDoneToday');
   const [shouldResetTitle, setShouldResetTitle] = useState(false);
   const [transitioning, setTransitioning] = useState<number | null>(null);
-  const [targetTasks, setTargetTasks] = useLocalStorage<number>('targetTasks', 10);
+  const [targetTasks, setTargetTasks] = useLocalStorage<number>('targetTasks', 10) as [
+    number,
+    React.Dispatch<React.SetStateAction<number>>
+  ];
 
   const isMobile = window.innerWidth < 768; // 簡單的移動設備檢測
 
@@ -137,12 +152,6 @@ export function TodoList() {
     startEditing(newSection.id, newSection.text, {} as React.MouseEvent);
   };
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && newTodo.trim() !== '') {
-      addTodo();
-    }
-  };
-
   const toggleTodo = (id: number) => {
     const todoToToggle = todos.find(todo => todo.id === id);
     if (todoToToggle && !todoToToggle.completed) {
@@ -181,13 +190,13 @@ export function TodoList() {
     setEditingId(null);
   };
 
-  const handleEditKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, id: number) => {
+  const handleEditKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, id: number): void => {
     if (e.key === 'Enter') {
       saveEdit(id);
     }
   };
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = (result: DropResult): void => {
     const { source, destination } = result;
 
     if (!destination) return;
@@ -235,15 +244,14 @@ export function TodoList() {
     }
   };
 
-  const handleSaveRecap = (recap: string, mood: string) => {
-    // 只清除已完成的任務
+  const handleSaveRecap = (recap: string, mood: string): void => {
     setCompletedTodos([]);
-    
-    // 不修改未完成的任務
-    // 移除這行: setTodos((prevTodos: Todo[]) => prevTodos.map((todo: Todo) => ({ ...todo, completed: true })));
-    
-    // 保存回顧到 localStorage
-    localStorage.setItem('dailyRecap', JSON.stringify({ text: recap, mood }));
+    const dailyRecap: DailyRecap = {
+      text: recap,
+      mood,
+      date: new Date().toISOString()
+    };
+    localStorage.setItem('dailyRecap', JSON.stringify(dailyRecap));
   };
 
   // 在組件卸載時保存數據
