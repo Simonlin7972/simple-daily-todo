@@ -1,7 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LanguageToggle } from "./language-toggle";
-import { ModeToggle } from "./mode-toggle";
 import { MobileMenu } from "./MobileMenu";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";

@@ -1,11 +1,12 @@
-import React, { KeyboardEvent } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Droppable } from '@hello-pangea/dnd';
+import { Droppable, DroppableStateSnapshot } from '@hello-pangea/dnd';
 import { TodoItem } from './TodoItem';
 import { useTranslation } from 'react-i18next';
 
+// 定義 Todo 項目的結構
 interface Todo {
   id: number;
   text: string;
@@ -13,6 +14,7 @@ interface Todo {
   type: 'todo' | 'section';
 }
 
+// 定義 TodoPanel 組件的 props
 interface TodoPanelProps {
   todos: Todo[];
   newTodo: string;
@@ -51,7 +53,12 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
   addSection
 }) => {
   const { t } = useTranslation();
+  // 狀態管理：是否有項目正在被拖動
+  const [isDragging, setIsDragging] = useState(false);
+  // 狀態管理：正在被拖動的項目 ID
+  const [draggingItemId, setDraggingItemId] = useState<number | null>(null);
 
+  // 處理按下 Enter 鍵添加新任務
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && newTodo.trim() !== '') {
       addTodo();
@@ -61,11 +68,13 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
   return (
     <Card className="w-full lg:max-w-2xl mb-4 lg:mb-0">
       <CardHeader>
+        {/* 顯示標題文字 */}
         <CardTitle className="typewriter-title">
           {titleText}<span className="caret"></span>
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* 輸入新任務的表單 */}
         <div className="flex space-x-4 mb-4">
           <Input
             type="text"
@@ -77,31 +86,43 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
           />
           <Button onClick={addTodo} disabled={newTodo.trim() === ''} className="h-14 w-32 font-bold rounded-lg">{t('addTodo')}</Button>
         </div>
+        {/* 可拖放的任務列表區域 */}
         <Droppable droppableId="todos">
-          {(provided) => (
-            <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
-              {todos.map((todo, index) => (
-                <TodoItem
-                  key={todo.id}
-                  todo={todo}
-                  index={index}
-                  editingId={editingId}
-                  editText={editText}
-                  isMobile={isMobile}
-                  transitioning={transitioning}
-                  toggleTodo={toggleTodo}
-                  startEditing={startEditing}
-                  setEditText={setEditText}
-                  handleEditKeyDown={handleEditKeyDown}
-                  saveEdit={saveEdit}
-                  deleteTodo={deleteTodo}
-                />
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
+          {(provided, snapshot: DroppableStateSnapshot) => {
+            // 更新拖動狀態
+            if (isDragging !== snapshot.isDraggingOver) {
+              setIsDragging(snapshot.isDraggingOver);
+            }
+            return (
+              <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
+                {/* 渲染每個 TodoItem */}
+                {todos.map((todo, index) => (
+                  <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    index={index}
+                    editingId={editingId}
+                    editText={editText}
+                    isMobile={isMobile}
+                    transitioning={transitioning}
+                    toggleTodo={toggleTodo}
+                    startEditing={startEditing}
+                    setEditText={setEditText}
+                    handleEditKeyDown={handleEditKeyDown}
+                    saveEdit={saveEdit}
+                    deleteTodo={deleteTodo}
+                    isDragging={isDragging}
+                    draggingItemId={draggingItemId}
+                    setDraggingItemId={setDraggingItemId}
+                  />
+                ))}
+                {provided.placeholder}
+              </ul>
+            );
+          }}
         </Droppable>
-        {todos.length > 0 && (
+        {/* 添加新分類的按鈕，僅在非拖動狀態下顯示 */}
+        {todos.length > 0 && !isDragging && (
           <div className="ml-7">
             <Button 
               variant="ghost" 
