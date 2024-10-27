@@ -1,8 +1,5 @@
 import React, { useState, KeyboardEvent, useEffect, useCallback } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SharedTabs } from './SharedTabs';
 
@@ -11,7 +8,6 @@ import sampleData from '../sampleData.json';
 import { useTranslation } from 'react-i18next';
 
 import { toast } from 'sonner';
-import { TodoItem } from './TodoItem';
 import { CompletedPanel } from './CompletedPanel';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { TodoPanel } from './TodoPanel';
@@ -243,9 +239,9 @@ export function TodoList() {
   return (
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex flex-col justify-center h-full py-4">
+        <div className="flex flex-col justify-center h-full py-4 px-4">
           <SharedTabs />
-          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto px-4 lg:px-0">
+          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto lg:px-0">
             <TodoPanel
               todos={todos}
               newTodo={newTodo}

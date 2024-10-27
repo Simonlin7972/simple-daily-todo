@@ -10,6 +10,7 @@ import './App.css'
 import './i18n'
 import { Toaster } from "@/components/ui/sonner"
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "./components/ui/command"
+import { FontProvider } from './contexts/FontContext';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -51,34 +52,36 @@ function App() {
   return (
     <Router>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <div className="min-h-screen font-sans antialiased bg-background text-foreground flex flex-col">
-          <TopNavBar currentTime={formatTime(currentTime)} />
-          <main className="flex-grow w-full py-4 pb-28 bg-gradient-to-b from-background to-muted">
-            <Routes>
-              <Route path="/" element={<TodoList />} />
-              <Route path="/daily-review" element={<DailyReview />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
-          <BottomBar />
-          <Toaster />
-          <CommandDialog open={open} onOpenChange={setOpen}>
-            <CommandInput 
-              placeholder="輸入新任務..." 
-              value={newTask}
-              onValueChange={setNewTask}
-            />
-            <CommandList>
-              <CommandEmpty>沒有找到相關任務</CommandEmpty>
-              <CommandGroup heading="操作">
-                <CommandItem onSelect={handleAddTask}>
-                  添加新任務
-                </CommandItem>
-              </CommandGroup>
-            </CommandList>
-          </CommandDialog>
-        </div>
+        <FontProvider>
+          <div className="min-h-screen font-sans antialiased bg-background text-foreground flex flex-col">
+            <TopNavBar currentTime={formatTime(currentTime)} />
+            <main className="flex-grow w-full py-4 pb-28 bg-gradient-to-b from-background to-muted">
+              <Routes>
+                <Route path="/" element={<TodoList />} />
+                <Route path="/daily-review" element={<DailyReview />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </main>
+            <BottomBar />
+            <Toaster />
+            <CommandDialog open={open} onOpenChange={setOpen}>
+              <CommandInput 
+                placeholder="輸入新任務..." 
+                value={newTask}
+                onValueChange={setNewTask}
+              />
+              <CommandList>
+                <CommandEmpty>沒有找到相關任務</CommandEmpty>
+                <CommandGroup heading="操作">
+                  <CommandItem onSelect={handleAddTask}>
+                    添加新任務
+                  </CommandItem>
+                </CommandGroup>
+              </CommandList>
+            </CommandDialog>
+          </div>
+        </FontProvider>
       </ThemeProvider>
     </Router>
   )

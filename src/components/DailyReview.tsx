@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { RecapCard } from './RecapCard';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { SharedTabs } from './SharedTabs';
+import { useFont } from '../contexts/FontContext';
 
 interface RecapData {
   text: string;
@@ -10,6 +11,7 @@ interface RecapData {
 
 export const DailyReview: React.FC = () => {
   const [recap, setRecap] = useLocalStorage<RecapData>('dailyRecap', { text: '', mood: '' });
+  const { font } = useFont();
 
   useEffect(() => {
     const savedRecap = localStorage.getItem('dailyRecap');
@@ -24,7 +26,7 @@ export const DailyReview: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-4">
+    <div className={`font-${font} container mx-auto px-4 py-4`}>
       <SharedTabs />
       {recap && <RecapCard recap={recap} onSave={handleSaveRecap} />}
     </div>

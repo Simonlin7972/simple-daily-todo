@@ -43,5 +43,12 @@
   "dailyRepeatTodos": "Daily repeat todos",
   "manage": "Manage",
   "history": "History",
-  "view": "View"
+  "view": "View",
+  "fontSettings": "Font styles",
+  "fontInter": "Inter",
+  "fontRoboto": "Roboto",
+  "fontOpenSans": "Open Sans",
+  "fontLato": "Lato",
+  "fontPoppins": "Poppins",
+  "home": "Home"
 }

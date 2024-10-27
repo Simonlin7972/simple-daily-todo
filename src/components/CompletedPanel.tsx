@@ -42,7 +42,7 @@ export const CompletedPanel: React.FC<CompletedPanelProps> = ({
   return (
     <Card className="w-full lg:max-w-md shadow-sm rounded-x">
       <CardHeader>
-        <div className="flex items-center mb-4">
+        <div className="flex items-center justify-center mb-4">
           <CardTitle className="mr-4">{t('whatIveDoneToday')}</CardTitle>
           <Badge variant="secondary">{today}</Badge>
         </div>
