@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SharedTabs } from './SharedTabs';
