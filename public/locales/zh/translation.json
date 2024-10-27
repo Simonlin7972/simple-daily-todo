@@ -59,5 +59,9 @@
   "deleteRecapDescription": "確定要刪除這則回顧嗎？",
   "sampleSection1": "工作任務",
   "sampleSection2": "個人任務",
-  "sampleSection3": "購物清單"
+  "sampleSection3": "購物清單",
+  "aboutApp": "關於 Simple Daily Todo",
+  "madeWith": "產品設計與開發",
+  "by": "by",
+  "allRightsReserved": "版權所有"
 }

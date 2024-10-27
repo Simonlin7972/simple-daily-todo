@@ -55,5 +55,9 @@
   "deleteRecapDescription": "Are you sure you want to delete this recap?",
   "sampleSection1": "Work",
   "sampleSection2": "Personal",
-  "sampleSection3": "Shopping"
+  "sampleSection3": "Shopping",
+  "aboutApp": "About Simple Daily Todo",
+  "madeWith": "Made with",
+  "by": "by",
+  "allRightsReserved": "All rights reserved."
 }

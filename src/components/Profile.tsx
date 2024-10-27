@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "next-themes";
-import { Moon, Sun, ChevronRight, Languages, Palette, Repeat, History, Type } from "lucide-react";
+import { Moon, Sun, ChevronRight, Languages, Palette, Repeat, History, Type, Heart } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -30,8 +30,10 @@ export const Profile: React.FC = () => {
   ];
 
   return (
-    <div className={`font-${font} max-w-2xl mx-auto px-4 pt-6`}>
+    <div className={`font-${font} max-w-2xl mx-auto px-4 pt-6 space-y-6`}>
       <Breadcrumb currentPage={t('profile')} />
+      
+      {/* Settings Card */}
       <Card className="p-4">
         <CardHeader>
           <CardTitle className="text-left text-5xl">Hello, Simon!</CardTitle>
@@ -122,6 +124,27 @@ export const Profile: React.FC = () => {
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* About Card */}
+      <Card className="p-4">
+        <CardHeader>
+          <CardTitle className="text-left text-2xl">{t('aboutApp')}</CardTitle>
+        </CardHeader>
+        <CardContent className="p-6 pt-2">
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <p className="text-sm text-muted-foreground">
+                {t('madeWith')} <Heart className="inline-block h-4 w-4 text-red-500" /> {t('by')} Simon Lin
+              </p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <p className="text-xs text-muted-foreground">
+                © 2024 Simple Daily Todo. {t('allRightsReserved')}
+              </p>
             </div>
           </div>
         </CardContent>

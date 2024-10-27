@@ -10,9 +10,6 @@ export function BottomBar() {
       <div>
         <TimerButton />
       </div>
-      <div className="text-sm text-muted-foreground">
-        Made by Simon Lin with 💜
-      </div>
       <div className="space-x-2">
         <Button variant="outline" id="addDataBtn">{t('addData')}</Button>
         <Button variant="outline" id="resetBtn">{t('reset')}</Button>
