@@ -11,32 +11,35 @@ interface RecapData {
 }
 
 export const DailyReview: React.FC = () => {
-  const [recaps, setRecaps] = useLocalStorage<RecapData[]>('dailyRecaps', []);
+  const [recaps, setRecaps] = useLocalStorage<RecapData[]>('dailyRecaps', []) as [
+    RecapData[],
+    React.Dispatch<React.SetStateAction<RecapData[]>>
+  ];
   const { font } = useFont();
 
   useEffect(() => {
     const savedRecap = localStorage.getItem('dailyRecap');
     if (savedRecap) {
-      const parsedRecap = JSON.parse(savedRecap);
-      setRecaps(prevRecaps => [{...parsedRecap, date: new Date().toISOString()}, ...prevRecaps]);
+      const parsedRecap = JSON.parse(savedRecap) as RecapData;
+      setRecaps((prevRecaps: RecapData[]) => [{...parsedRecap, date: new Date().toISOString()}, ...prevRecaps]);
       localStorage.removeItem('dailyRecap');
     }
   }, []);
 
-  const handleSaveRecap = (updatedRecap: RecapData) => {
-    setRecaps(prevRecaps => prevRecaps.map(recap => 
+  const handleSaveRecap = (updatedRecap: RecapData): void => {
+    setRecaps((prevRecaps: RecapData[]) => prevRecaps.map(recap => 
       recap.date === updatedRecap.date ? updatedRecap : recap
     ));
   };
 
-  const handleDeleteRecap = (date: string) => {
-    setRecaps(prevRecaps => prevRecaps.filter(recap => recap.date !== date));
+  const handleDeleteRecap = (date: string): void => {
+    setRecaps((prevRecaps: RecapData[]) => prevRecaps.filter(recap => recap.date !== date));
   };
 
   return (
     <div className={`font-${font} container mx-auto px-4 py-4`}>
       <SharedTabs />
-      {recaps.map((recap, index) => (
+      {recaps.map((recap: RecapData) => (
         <RecapCard 
           key={recap.date} 
           recap={recap} 

@@ -47,7 +47,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   draggingItemId,
   setDraggingItemId
 }) => {
-  const { t } = useTranslation();
+  const {} = useTranslation();
 
   return (
     <Draggable key={todo.id} draggableId={todo.id.toString()} index={index}>

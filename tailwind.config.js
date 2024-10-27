@@ -16,13 +16,13 @@ module.exports = {
     		}
     	},
     	extend: {
-			fontFamily: {
-				inter: ['Inter', 'sans-serif'],
-				roboto: ['Roboto', 'sans-serif'],
-				'open-sans': ['Open Sans', 'sans-serif'],
-				lato: ['Lato', 'sans-serif'],
-				poppins: ['Poppins', 'sans-serif'],
-			},
+    		fontFamily: {
+    			inter: ['Inter', 'sans-serif'],
+    			roboto: ['Roboto', 'sans-serif'],
+    			'open-sans': ['Open Sans', 'sans-serif'],
+    			lato: ['Lato', 'sans-serif'],
+    			poppins: ['Poppins', 'sans-serif']
+    		},
     		colors: {
     			border: 'hsl(var(--border))',
     			input: 'hsl(var(--input))',
