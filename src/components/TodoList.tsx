@@ -220,10 +220,13 @@ export function TodoList() {
   };
 
   const handleSaveRecap = (recap: string, mood: string) => {
+    // 只清除已完成的任務
     setCompletedTodos([]);
     
-    setTodos((prevTodos: Todo[]) => prevTodos.map((todo: Todo) => ({ ...todo, completed: true })));
+    // 不修改未完成的任務
+    // 移除這行: setTodos((prevTodos: Todo[]) => prevTodos.map((todo: Todo) => ({ ...todo, completed: true })));
     
+    // 保存回顧到 localStorage
     localStorage.setItem('dailyRecap', JSON.stringify({ text: recap, mood }));
   };
 

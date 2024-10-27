@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useFont } from '../contexts/FontContext';
 import { Breadcrumb } from './Breadcrumb';
+type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins';
 
 export const Profile: React.FC = () => {
   const { t, i18n } = useTranslation();
