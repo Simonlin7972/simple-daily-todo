@@ -10,7 +10,7 @@ import './App.css'
 import './i18n'
 import { Toaster } from "@/components/ui/sonner"
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "./components/ui/command"
-import { FontProvider } from './contexts/FontContext';
+import { FontProvider } from '@/contexts/FontContext';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());

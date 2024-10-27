@@ -54,5 +54,7 @@
   "fontOpenSans": "Open Sans",
   "fontLato": "Lato",
   "fontPoppins": "Poppins",
-  "home": "首頁"
+  "home": "首頁",
+  "deleteRecapConfirmation": "刪除回顧",
+  "deleteRecapDescription": "確定要刪除這則回顧嗎？"
 }

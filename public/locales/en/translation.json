@@ -50,5 +50,7 @@
   "fontOpenSans": "Open Sans",
   "fontLato": "Lato",
   "fontPoppins": "Poppins",
-  "home": "Home"
+  "home": "Home",
+  "deleteRecapConfirmation": "Delete recap",
+  "deleteRecapDescription": "Are you sure you want to delete this recap?"
 }
