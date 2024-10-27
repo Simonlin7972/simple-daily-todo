@@ -56,5 +56,8 @@
   "fontPoppins": "Poppins",
   "home": "首頁",
   "deleteRecapConfirmation": "刪除回顧",
-  "deleteRecapDescription": "確定要刪除這則回顧嗎？"
+  "deleteRecapDescription": "確定要刪除這則回顧嗎？",
+  "sampleSection1": "工作任務",
+  "sampleSection2": "個人任務",
+  "sampleSection3": "購物清單"
 }

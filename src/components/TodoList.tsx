@@ -59,19 +59,35 @@ export function TodoList() {
 
     const addSampleData = () => {
       const currentLanguage = i18n.language.startsWith('zh') ? 'zh' : 'en';
-      const newTodos = sampleData[currentLanguage].todos.map(todo => ({
-        ...todo,
-        id: Date.now() + Math.random(),
-        type: todo.type as 'todo' | 'section'
-      }));
+      const newTodos = [
+        { id: Date.now(), text: t('sampleSection1'), completed: false, type: 'section' as const },
+        ...sampleData[currentLanguage].todos.slice(0, 3).map(todo => ({
+          ...todo,
+          id: Date.now() + Math.random(),
+          type: 'todo' as const
+        })),
+        { id: Date.now() + 1, text: t('sampleSection2'), completed: false, type: 'section' as const },
+        ...sampleData[currentLanguage].todos.slice(3, 6).map(todo => ({
+          ...todo,
+          id: Date.now() + Math.random(),
+          type: 'todo' as const
+        })),
+        { id: Date.now() + 2, text: t('sampleSection3'), completed: false, type: 'section' as const },
+        ...sampleData[currentLanguage].todos.slice(6).map(todo => ({
+          ...todo,
+          id: Date.now() + Math.random(),
+          type: 'todo' as const
+        }))
+      ];
+
       const newCompletedTodos = sampleData[currentLanguage].completedTodos.map(todo => ({
         ...todo,
         id: Date.now() + Math.random(),
-        type: todo.type as 'todo' | 'section'
+        type: 'todo' as const
       }));
 
-      setTodos([...newTodos]);
-      setCompletedTodos([...newCompletedTodos]);
+      setTodos(newTodos);
+      setCompletedTodos(newCompletedTodos);
 
       toast.success(t('sampleDataAdded'), {
         description: t('sampleDataAddedDescription'),
@@ -244,7 +260,7 @@ export function TodoList() {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex flex-col justify-center h-full py-4 px-4">
           <SharedTabs />
-          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto lg:px-0">
+          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-6xl mx-auto lg:px-0">
             <TodoPanel
               todos={todos}
               newTodo={newTodo}

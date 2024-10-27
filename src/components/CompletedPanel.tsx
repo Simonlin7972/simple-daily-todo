@@ -40,7 +40,7 @@ export const CompletedPanel: React.FC<CompletedPanelProps> = ({
   const today = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
   return (
-    <Card className="w-full lg:max-w-md shadow-sm rounded-x">
+    <Card className="w-full lg:max-w-2xl shadow-sm rounded-x">
       <CardHeader>
         <div className="flex items-center justify-center mb-4">
           <CardTitle className="mr-4">{t('whatIveDoneToday')}</CardTitle>

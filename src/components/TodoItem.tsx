@@ -75,7 +75,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                 <GripVertical size={20} />
               </span>
               <div className={`flex items-center justify-between p-2 rounded-lg border bg-card text-card-foreground shadow-sm flex-grow h-full max-w-[calc(100%-2rem)] ${todo.type === 'section' ? 'bg-secondary border-secondary' : ''} ${snapshot.isDragging ? 'rotate-1' : ''} ${!isDragging ? 'hover:border-gray-300 dark:hover:border-gray-600' : ''} transition-colors duration-200`}>
-                <div className="flex items-center flex-grow overflow-hidden">
+                <div className="flex items-center flex-grow overflow-hidden pr-2">
                   {todo.type === 'todo' && (
                     <Checkbox
                       checked={todo.completed}
@@ -108,59 +108,19 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                     </Tooltip>
                   )}
                 </div>
-                <div className={`flex space-x-1 ml-2 flex-shrink-0 ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'hidden' : 'hidden group-hover:flex'} transition-opacity duration-200`}>
+                <div className={`flex-shrink-0 w-20 flex justify-end ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'invisible' : 'invisible group-hover:visible'} transition-opacity duration-200`}>
                   {editingId === todo.id ? (
-                    isMobile ? (
-                      <Button variant="ghost" size="icon" onClick={() => saveEdit(todo.id)}>
-                        <Check size={16} />
-                      </Button>
-                    ) : (
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button variant="ghost" size="icon" onClick={() => saveEdit(todo.id)}>
-                            <Check size={16} />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{t('save')}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    )
+                    <Button variant="ghost" size="icon" onClick={() => saveEdit(todo.id)}>
+                      <Check size={16} />
+                    </Button>
                   ) : (
                     <>
-                      {isMobile ? (
-                        <>
-                          <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
-                            <Edit2 size={16} />
-                          </Button>
-                          <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
-                            <Trash2 size={16} />
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
-                                <Edit2 size={16} />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>{t('edit')}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
-                                <Trash2 size={16} />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>{t('delete')}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </>
-                      )}
+                      <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
+                        <Edit2 size={16} />
+                      </Button>
+                      <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
+                        <Trash2 size={16} />
+                      </Button>
                     </>
                   )}
                 </div>

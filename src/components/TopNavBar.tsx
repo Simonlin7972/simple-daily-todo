@@ -16,17 +16,22 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
   return (
     <header className="sticky pl-1 pr-0 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="relative flex h-16 items-center px-4">
-        {/* App Title */}
-        <Link to="/" className="flex items-center justify-center">
-          <span className="font-['Pacifico'] text-2xl font-bold text-primary whitespace-nowrap">{t('appTitle')}</span>
-        </Link>
+        {/* Left side placeholder to balance the layout */}
+        <div className="flex-1 flex items-center">
+          {/* You can add left-side elements here if needed */}
+        </div>
 
-        {/* Right side elements: Time, Language Toggle, Mode Toggle, Profile Button, Mobile Menu */}
-        <div className="ml-auto flex items-center space-x-4">
+        {/* Centered App Title */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+          <Link to="/" className="flex items-center justify-center">
+            <span className="font-['Pacifico'] text-2xl font-bold text-primary whitespace-nowrap">{t('appTitle')}</span>
+          </Link>
+        </div>
+
+        {/* Right side elements */}
+        <div className="flex-1 flex items-center justify-end space-x-4">
           <span className="text-sm hidden md:inline">{currentTime}</span>
           <div className="hidden md:flex items-center space-x-2">
-            {/* <LanguageToggle /> */}
-            {/* <ModeToggle /> */}
             <Button
               variant="outline"
               size="icon"

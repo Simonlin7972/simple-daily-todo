@@ -82,7 +82,7 @@ export const Profile: React.FC = () => {
               <div className="flex-grow flex justify-between items-center">
                 <h3 className="text-lg font-medium">{t('fontSettings')}</h3>
                 <Select value={font} onValueChange={(value: Font) => setFont(value)}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-[160px]">
                     <SelectValue placeholder="Select font" />
                   </SelectTrigger>
                   <SelectContent>

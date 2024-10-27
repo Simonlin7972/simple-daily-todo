@@ -13,7 +13,10 @@ export const FontProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [font, setFont] = useState<Font>('inter');
 
   useEffect(() => {
-    document.body.className = `font-${font}`;
+    document.documentElement.className = document.documentElement.className
+      .replace(/font-(inter|roboto|open-sans|lato|poppins)/, '')
+      .trim();
+    document.documentElement.classList.add(`font-${font}`);
   }, [font]);
 
   return (
