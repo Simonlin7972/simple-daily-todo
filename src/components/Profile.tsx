@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "next-themes";
-import { Moon, Sun, ChevronRight, Languages, Palette, Repeat, History, Type, Heart } from "lucide-react";
+import { Moon, Sun, ChevronRight, Languages, Palette, Repeat, History, Type, Heart, Pencil } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useFont } from '../contexts/FontContext';
 import { Breadcrumb } from './Breadcrumb';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { XIcon } from "lucide-react";
 type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins';
 
 export const Profile: React.FC = () => {
@@ -29,6 +33,21 @@ export const Profile: React.FC = () => {
     { value: 'poppins', label: 'Poppins' },
   ];
 
+  const [isNameDialogOpen, setIsNameDialogOpen] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [userName, setUserName] = useLocalStorage<string>("userName", "") as [
+    string,
+    React.Dispatch<React.SetStateAction<string>>
+  ];
+
+  const handleNameSubmit = () => {
+    if (newName.trim()) {
+      setUserName(newName.trim());
+      setIsNameDialogOpen(false);
+      setNewName("");
+    }
+  };
+
   return (
     <div className={`font-${font} max-w-2xl mx-auto px-4 pt-6 space-y-6`}>
       <Breadcrumb currentPage={t('profile')} />
@@ -36,10 +55,40 @@ export const Profile: React.FC = () => {
       {/* Settings Card */}
       <Card className="p-4">
         <CardHeader>
-          <CardTitle className="text-left text-5xl">Hello, Simon!</CardTitle>
+          <CardTitle className="text-left text-5xl">Hello, {userName || "Simon!"}</CardTitle>
         </CardHeader>
         <CardContent className="p-6 pt-2">
           <div className="space-y-6">
+            {/* 使用者名稱設置 */}
+            <div className="flex items-center space-x-4">
+              <Pencil className="h-6 w-6 text-muted-foreground" />
+              <div className="flex-grow flex justify-between items-center">
+                <h3 className="text-lg font-medium">{t('userName')}</h3>
+                <Button variant="outline" size="sm" onClick={() => setIsNameDialogOpen(true)}>
+                  {userName || t('setUserName')}
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Dialog open={isNameDialogOpen} onOpenChange={setIsNameDialogOpen}>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>{t('userName')}</DialogTitle>
+                    </DialogHeader>
+                    <Input value={newName || userName} onChange={(e) => setNewName(e.target.value)} placeholder={t('enterUserName')} defaultValue={userName} />
+                    <DialogFooter>
+                      <Button variant="outline" size="sm" onClick={() => setIsNameDialogOpen(false)}>
+                        {t('cancel')}
+                      </Button>
+                      <Button variant="default" size="sm" onClick={handleNameSubmit} type="submit">
+                        {t('save')}
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+
+            <Separator className="my-4" />
+        
             {/* 語言設置 */}
             <div className="flex items-center space-x-4">
               <Languages className="h-6 w-6 text-muted-foreground" />

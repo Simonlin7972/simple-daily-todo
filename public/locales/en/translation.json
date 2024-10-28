@@ -59,5 +59,9 @@
   "aboutApp": "About Simple Daily Todo",
   "madeWith": "Made with",
   "by": "by",
-  "allRightsReserved": "All rights reserved."
+  "allRightsReserved": "All rights reserved.",
+  "userName": "User name",
+  "enterUserName": "Enter your name",
+  "addUserName": "Add user name",
+  "setUserName": "Set user name"
 }

@@ -63,5 +63,9 @@
   "aboutApp": "關於 Simple Daily Todo",
   "madeWith": "產品設計與開發",
   "by": "by",
-  "allRightsReserved": "版權所有"
+  "allRightsReserved": "版權所有",
+  "userName": "使用者名稱",
+  "enterUserName": "輸入你的名稱",
+  "addUserName": "新增使用者名稱",
+  "setUserName": "設定使用者名稱"
 }
