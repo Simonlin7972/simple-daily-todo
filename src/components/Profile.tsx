@@ -12,12 +12,15 @@ import { Breadcrumb } from './Breadcrumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useNavigate } from 'react-router-dom';
+
 type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins';
 
 export const Profile: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { setTheme, theme } = useTheme();
   const { font, setFont } = useFont();
+  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'zh' : 'en';
@@ -153,7 +156,7 @@ export const Profile: React.FC = () => {
               <Repeat className="h-6 w-6 text-muted-foreground" />
               <div className="flex-grow flex justify-between items-center">
                 <h3 className="text-lg font-medium">{t('dailyRepeatTodos')}</h3>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={() => navigate('/repeat-todo-management')}>
                   {t('manage')}
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -167,7 +170,7 @@ export const Profile: React.FC = () => {
               <History className="h-6 w-6 text-muted-foreground" />
               <div className="flex-grow flex justify-between items-center">
                 <h3 className="text-lg font-medium">{t('history')}</h3>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={() => navigate('/todo-history')}>
                   {t('view')}
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>

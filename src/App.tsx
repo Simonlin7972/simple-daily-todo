@@ -11,6 +11,8 @@ import './i18n'
 import { Toaster } from "@/components/ui/sonner"
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "./components/ui/command"
 import { FontProvider } from './contexts/FontContext';
+import RepeatTodoManagement from './pages/RepeatTodoManagement';
+import TodoHistory from './pages/TodoHistory';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -60,6 +62,8 @@ function App() {
                 <Route path="/" element={<TodoList />} />
                 <Route path="/daily-review" element={<DailyReview />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/repeat-todo-management" element={<RepeatTodoManagement />} />
+                <Route path="/todo-history" element={<TodoHistory />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </main>

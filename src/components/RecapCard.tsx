@@ -47,13 +47,15 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
   const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(recap.text);
+  const [selectedMood, setSelectedMood] = useState(recap.mood);
+  const [isHovered, setIsHovered] = useState(false); // 新增狀態來跟踪懸停
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    const updatedRecap = { ...recap, text: editedText };
+    const updatedRecap = { ...recap, text: editedText, mood: selectedMood };
     onSave(updatedRecap);
     setIsEditing(false);
     customToast.success(t('recapUpdated'), {
@@ -70,7 +72,11 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto p-4 mb-4">
+    <Card 
+      className="relative w-full max-w-2xl mx-auto p-4 mb-4"
+      onMouseEnter={() => setIsHovered(true)} // 懸停時設置狀態
+      onMouseLeave={() => setIsHovered(false)} // 離開時重置狀態
+    >
       <CardHeader className="pb-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -80,30 +86,33 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
             </CardTitle>
             <Badge variant="secondary" className="ml-2">{formatDate(recap.date)}</Badge>
           </div>
-          <div className="flex space-x-2">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Trash2 size={20} />
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>{t('deleteRecapConfirmation')}</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    {t('deleteRecapDescription')}
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete}>{t('delete')}</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Button variant="ghost" size="icon" onClick={handleEdit}>
-              <Edit2 size={20} />
-            </Button>
-          </div>
+          {/* 編輯和刪除按鈕 */}
+          {isHovered && (
+            <div className="absolute top-6 right-6 flex space-x-2">
+              <Button variant="ghost" size="icon" onClick={handleEdit}>
+                <Edit2 size={20} />
+              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Trash2 size={20} />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>{t('deleteRecapConfirmation')}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {t('deleteRecapDescription')}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>{t('delete')}</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardContent>
@@ -114,10 +123,24 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
               onChange={(e) => setEditedText(e.target.value)}
               className="min-h-[200px] m-2 mb-4 mt-8 p-4"
             />
+            <div className="flex justify-between mb-4">
+              <div className="flex space-x-2">
+                <Button variant="outline" onClick={() => setSelectedMood('bad')} className={`h-8 w-20 ${selectedMood === 'bad' ? 'bg-red-500 text-white' : ''}`}>
+                  {t('badMood')}
+                </Button>
+                <Button variant="outline" onClick={() => setSelectedMood('neutral')} className={`h-8 w-20 ${selectedMood === 'neutral' ? 'bg-yellow-500 text-white' : ''}`}>
+                  {t('neutralMood')}
+                </Button>
+                <Button variant="outline" onClick={() => setSelectedMood('good')} className={`h-8 w-20 ${selectedMood === 'good' ? 'bg-green-500 text-white' : ''}`}>
+                  {t('goodMood')}
+                </Button>
+              </div>
+            </div>
             <div className="flex justify-end space-x-2">
               <Button variant="outline" onClick={() => {
                 setIsEditing(false);
                 setEditedText(recap.text);
+                setSelectedMood(recap.mood);
               }}>{t('cancel')}</Button>
               <Button onClick={handleSave}>{t('save')}</Button>
             </div>
