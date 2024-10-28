@@ -12,7 +12,6 @@ import { Breadcrumb } from './Breadcrumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { XIcon } from "lucide-react";
 type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins';
 
 export const Profile: React.FC = () => {
