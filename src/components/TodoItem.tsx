@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { GripVertical, Trash2, Edit2, Check } from 'lucide-react';
+import { GripVertical, Trash2, Edit2, Check, Play, Pause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Badge } from "@/components/ui/badge";
 
 interface TodoItemProps {
   todo: {
@@ -28,6 +29,7 @@ interface TodoItemProps {
   isDragging: boolean;
   draggingItemId: number | null;
   setDraggingItemId: (id: number | null) => void;
+  onStartTimer: (taskText: string) => void;
 }
 
 export const TodoItem: React.FC<TodoItemProps> = ({
@@ -45,9 +47,57 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   deleteTodo,
   isDragging,
   draggingItemId,
-  setDraggingItemId
+  setDraggingItemId,
+  onStartTimer
 }) => {
   const {} = useTranslation();
+  const [timerInfo, setTimerInfo] = useState<{ time: number; isRunning: boolean } | null>(null);
+
+  useEffect(() => {
+    const handleTimerUpdate = (event: CustomEvent<{ taskText: string; time: number; isRunning: boolean }>) => {
+      if (event.detail.taskText === todo.text) {
+        setTimerInfo({ time: event.detail.time, isRunning: event.detail.isRunning });
+      }
+    };
+
+    const handleTimerStateUpdate = (event: CustomEvent<{ taskText: string; isRunning: boolean }>) => {
+      if (event.detail.taskText === todo.text) {
+        setTimerInfo(prev => prev ? { ...prev, isRunning: event.detail.isRunning } : null);
+      }
+    };
+
+    const handleTimerReset = () => {
+      setTimerInfo(null);
+    };
+
+    window.addEventListener('timerUpdate', handleTimerUpdate as EventListener);
+    window.addEventListener('timerStateUpdate', handleTimerStateUpdate as EventListener);
+    window.addEventListener('timerReset', handleTimerReset);
+
+    return () => {
+      window.removeEventListener('timerUpdate', handleTimerUpdate as EventListener);
+      window.removeEventListener('timerStateUpdate', handleTimerStateUpdate as EventListener);
+      window.removeEventListener('timerReset', handleTimerReset);
+    };
+  }, [todo.text]);
+
+  const handleTimerClick = () => {
+    if (timerInfo) {
+      // 如果已經在計時，發送切換事件
+      window.dispatchEvent(new CustomEvent('toggleTimer', { 
+        detail: { taskText: todo.text } 
+      }));
+    } else {
+      // 如果還沒開始計時，發送開始事件
+      onStartTimer(todo.text);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   return (
     <Draggable key={todo.id} draggableId={todo.id.toString()} index={index}>
@@ -96,9 +146,18 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span 
-                          className={`${todo.completed ? 'line-through text-muted-foreground' : ''} text-sm flex-grow text-left ${todo.type === 'section' ? 'font-bold text-sm pl-2' : ''} cursor-pointer truncate`}
+                          className={`${todo.completed ? 'line-through text-muted-foreground' : ''} text-sm flex-grow text-left ${todo.type === 'section' ? 'font-bold text-sm pl-2' : ''} cursor-pointer truncate flex items-center`}
                           onClick={(e) => startEditing(todo.id, todo.text, e)}
                         >
+                          
+                          {timerInfo && (
+                            <Badge 
+                              variant="secondary" 
+                              className="mr-2"
+                            >
+                              {formatTime(timerInfo.time)}
+                            </Badge>
+                          )}
                           {todo.text}
                         </span>
                       </TooltipTrigger>
@@ -108,21 +167,22 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                     </Tooltip>
                   )}
                 </div>
-                <div className={`flex-shrink-0 w-20 flex justify-end ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'invisible' : 'invisible group-hover:visible'} transition-opacity duration-200`}>
-                  {editingId === todo.id ? (
-                    <Button variant="ghost" size="icon" onClick={() => saveEdit(todo.id)}>
-                      <Check size={16} />
+                <div className={`flex-shrink-0 w-32 flex justify-end ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'invisible' : 'invisible group-hover:visible'} transition-opacity duration-200`}>
+                  {todo.type === 'todo' && (
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={handleTimerClick}
+                    >
+                      {timerInfo?.isRunning ? <Pause size={16} /> : <Play size={16} />}
                     </Button>
-                  ) : (
-                    <>
-                      <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
-                        <Edit2 size={16} />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
-                        <Trash2 size={16} />
-                      </Button>
-                    </>
                   )}
+                  <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
+                    <Edit2 size={16} />
+                  </Button>
+                  <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
+                    <Trash2 size={16} />
+                  </Button>
                 </div>
               </div>
             </li>

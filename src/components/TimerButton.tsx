@@ -1,54 +1,107 @@
-import  { useState, useEffect } from 'react';
-import { Button } from "./ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import React, { useEffect, useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Play, Pause, RotateCcw } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
 export function TimerButton() {
+  const { t } = useTranslation();
   const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState(0);
-  const { t } = useTranslation();
+  const [currentTask, setCurrentTask] = useState<string>('');
 
   useEffect(() => {
+    const handleStartTimer = (event: CustomEvent<{ taskText: string }>) => {
+      setCurrentTask(event.detail.taskText);
+      setIsRunning(true);
+      setTime(0);
+    };
+
+    const handleToggleTimer = (event: CustomEvent<{ taskText: string }>) => {
+      if (event.detail.taskText === currentTask) {
+        setIsRunning(!isRunning);
+      }
+    };
+
+    window.addEventListener('startTimer', handleStartTimer as EventListener);
+    window.addEventListener('toggleTimer', handleToggleTimer as EventListener);
+
+    return () => {
+      window.removeEventListener('startTimer', handleStartTimer as EventListener);
+      window.removeEventListener('toggleTimer', handleToggleTimer as EventListener);
+    };
+  }, [currentTask, isRunning]);
+
+  useEffect(() => {
+    // 發送狀態更新事件
+    window.dispatchEvent(new CustomEvent('timerStateUpdate', { 
+      detail: { 
+        taskText: currentTask,
+        isRunning 
+      } 
+    }));
+
     let interval: NodeJS.Timeout;
     if (isRunning) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        setTime((prevTime) => {
+          window.dispatchEvent(new CustomEvent('timerUpdate', { 
+            detail: { 
+              taskText: currentTask,
+              time: prevTime + 1,
+              isRunning 
+            } 
+          }));
+          return prevTime + 1;
+        });
       }, 1000);
     }
-    return () => clearInterval(interval);
-  }, [isRunning]);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-    const secs = (seconds % 60).toString().padStart(2, '0');
-    return `${mins}:${secs}`;
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isRunning, currentTask]);
+
+  const toggleTimer = () => {
+    setIsRunning(!isRunning);
   };
 
-  const toggleTimer = () => setIsRunning(!isRunning);
   const resetTimer = () => {
     setIsRunning(false);
     setTime(0);
+    setCurrentTask('');
+    window.dispatchEvent(new CustomEvent('timerReset'));
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline" className="text-2xl font-bold">
-          {formatTime(time)}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-48 mb-1" align="start" side="top">
-        <div className="flex flex-col space-y-2">
-          <Button variant="outline" onClick={toggleTimer}>
-            {isRunning ? t('pauseTimer') : t('startTimer')}
-          </Button>
-          <Button variant="secondary" onClick={resetTimer}>{t('resetTimer')}</Button>
-        </div>
-      </PopoverContent>
-    </Popover>
+    <div className="flex items-center space-x-2">
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={toggleTimer}
+        className={isRunning ? 'text-yellow-500' : 'text-green-500'}
+      >
+        {isRunning ? <Pause size={20} /> : <Play size={20} />}
+      </Button>
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={resetTimer}
+        disabled={time === 0}
+      >
+        <RotateCcw size={20} />
+      </Button>
+      <span className="min-w-[80px] text-lg font-mono">{formatTime(time)}</span>
+      {currentTask && (
+        <span className="text-sm text-muted-foreground ml-2">{currentTask}</span>
+      )}
+    </div>
   );
 }

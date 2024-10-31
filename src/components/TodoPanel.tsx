@@ -23,16 +23,17 @@ interface TodoPanelProps {
   isMobile: boolean;
   transitioning: number | null;
   titleText: string;
-  setNewTodo: (value: string) => void;
+  setNewTodo: React.Dispatch<React.SetStateAction<string>>;
   addTodo: () => void;
   toggleTodo: (id: number) => void;
   startEditing: (id: number, text: string, event: React.MouseEvent) => void;
-  setEditText: (value: string) => void;
+  setEditText: React.Dispatch<React.SetStateAction<string>>;
   handleEditKeyDown: (e: React.KeyboardEvent<HTMLInputElement>, id: number) => void;
   saveEdit: (id: number) => void;
   deleteTodo: (id: number) => void;
   addSection: () => void;
   addEmptyTodo: () => void;
+  onStartTimer: (taskText: string) => void;
 }
 
 export const TodoPanel: React.FC<TodoPanelProps> = ({
@@ -52,7 +53,8 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
   saveEdit,
   deleteTodo,
   addSection,
-  addEmptyTodo
+  addEmptyTodo,
+  onStartTimer
 }) => {
   const { t } = useTranslation();
   // 狀態管理：是否有項目正在被拖動
@@ -116,6 +118,7 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
                     isDragging={isDragging}
                     draggingItemId={draggingItemId}
                     setDraggingItemId={setDraggingItemId}
+                    onStartTimer={onStartTimer}
                   />
                 ))}
                 {provided.placeholder}

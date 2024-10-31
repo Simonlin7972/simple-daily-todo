@@ -22,7 +22,7 @@
   "newSection": "輸入分類標題",
   "startTimer": "開始計時",
   "pauseTimer": "暫停計時",
-  "resetTimer": "重新計時",
+  "resetTimer": "重設計時",
   "todaysRecap": "今日回顧",
   "recapDescription": "這是你今天完成的任務摘要，你可以自由編輯並反思今天的成就，儲存之後今天完成的任務將被清除。",
   "saveRecap": "儲存回顧",
@@ -69,5 +69,6 @@
   "addUserName": "新增使用者名稱",
   "setUserName": "設定使用者名稱",
   "addTask": "新增任務",
-  "newTask": "輸入你的新任務"
+  "newTask": "輸入你的新任務",
+  "tasksCompletedCount": "今天已完成 {{count}} 件任務"
 }

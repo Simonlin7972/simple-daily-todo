@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Frown, Meh, Smile, Edit2, Trash2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,6 +71,9 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
     return new Date(dateString).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
   };
 
+  // 計算已完成的任務數量（根據換行符分割文本並計算行數）
+  const completedTasksCount = recap.text.split('\n').filter(line => line.trim()).length;
+
   return (
     <Card 
       className="relative w-full max-w-2xl mx-auto p-4 mb-4"
@@ -79,12 +82,17 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
     >
       <CardHeader className="pb-0">
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <CardTitle className="flex items-center">
-              {t('todaysRecap')}
-              <MoodIcon mood={recap.mood} className="ml-2" />
-            </CardTitle>
-            <Badge variant="secondary" className="ml-2">{formatDate(recap.date)}</Badge>
+          <div className="flex flex-col">
+            <div className="flex items-center mb-3">
+              <CardTitle className="flex items-center">
+                {t('todaysRecap')}
+                <MoodIcon mood={recap.mood} className="ml-2" />
+              </CardTitle>
+              <Badge variant="secondary" className="ml-2">{formatDate(recap.date)}</Badge>
+            </div>
+            <CardDescription className="text-sm text-muted-foreground text-left">
+              {t('tasksCompletedCount', { count: completedTasksCount })}
+            </CardDescription>
           </div>
           {/* 編輯和刪除按鈕 */}
           {isHovered && (

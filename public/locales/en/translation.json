@@ -20,9 +20,9 @@
   "toggleTheme": "Switch theme",
   "addSection": "Add new section",
   "newSection": "Enter section title",
-  "startTimer": "Start timer",
-  "pauseTimer": "Pause timer",
-  "resetTimer": "Reset timer",
+  "startTimer": "Start Timer",
+  "pauseTimer": "Pause Timer",
+  "resetTimer": "Reset Timer",
    "todaysRecap": "Today's recap",
   "recapDescription": "Here's a summary of your completed tasks. Feel free to edit and reflect on your achievements.",
   "saveRecap": "Save recap",
@@ -65,5 +65,6 @@
   "addUserName": "Add user name",
   "setUserName": "Set user name",
   "addTask": "Add task",
-  "newTask": "Enter your task"
+  "newTask": "Enter your task",
+  "tasksCompletedCount": "Completed {{count}} tasks today"
 }

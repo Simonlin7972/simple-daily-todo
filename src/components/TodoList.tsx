@@ -273,12 +273,17 @@ export function TodoList() {
     setTodos(prevTodos => [...prevTodos, newTodo]);
   };
 
+  const handleStartTimer = (taskText: string) => {
+    const event = new CustomEvent('startTimer', { detail: { taskText } });
+    window.dispatchEvent(event);
+  };
+
   return (
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex flex-col justify-center h-full py-4 px-4">
+        <div className="flex flex-col justify-center h-full py-4">
           <SharedTabs />
-          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-6xl mx-auto lg:px-0">
+          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto px-4 lg:px-0">
             <TodoPanel
               todos={todos}
               newTodo={newTodo}
@@ -297,6 +302,7 @@ export function TodoList() {
               deleteTodo={deleteTodo}
               addSection={addSection}
               addEmptyTodo={addEmptyTodo}
+              onStartTimer={handleStartTimer}
             />
             {completedTodos.length > 0 && (
               <CompletedPanel 
