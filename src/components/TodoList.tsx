@@ -282,38 +282,41 @@ export function TodoList() {
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex flex-col justify-center h-full py-4">
+ 
+          <div className="container mx-auto px-4">
           <SharedTabs />
-          <div className="flex flex-col lg:flex-row justify-center lg:space-x-4 w-full max-w-5xl mx-auto px-4 lg:px-0">
-            <TodoPanel
-              todos={todos}
-              newTodo={newTodo}
-              editingId={editingId}
-              editText={editText}
-              isMobile={isMobile}
-              transitioning={transitioning}
-              titleText={titleText}
-              setNewTodo={setNewTodo}
-              addTodo={addTodo}
-              toggleTodo={toggleTodo}
-              startEditing={startEditing}
-              setEditText={setEditText}
-              handleEditKeyDown={handleEditKeyDown}
-              saveEdit={saveEdit}
-              deleteTodo={deleteTodo}
-              addSection={addSection}
-              addEmptyTodo={addEmptyTodo}
-              onStartTimer={handleStartTimer}
-            />
-            {completedTodos.length > 0 && (
-              <CompletedPanel 
-                completedTodos={completedTodos} 
-                onRestore={restoreTodo} 
+            <div className={`grid ${completedTodos.length > 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:place-items-center'} gap-4 max-w-8xl mx-auto`}>
+              <TodoPanel
+                todos={todos}
+                newTodo={newTodo}
+                editingId={editingId}
+                editText={editText}
                 isMobile={isMobile}
-                targetTasks={targetTasks}
-                onTargetTasksChange={setTargetTasks}
-                onSaveRecap={handleSaveRecap}
+                transitioning={transitioning}
+                titleText={titleText}
+                setNewTodo={setNewTodo}
+                addTodo={addTodo}
+                toggleTodo={toggleTodo}
+                startEditing={startEditing}
+                setEditText={setEditText}
+                handleEditKeyDown={handleEditKeyDown}
+                saveEdit={saveEdit}
+                deleteTodo={deleteTodo}
+                addSection={addSection}
+                addEmptyTodo={addEmptyTodo}
+                onStartTimer={handleStartTimer}
               />
-            )}
+              {completedTodos.length > 0 && (
+                <CompletedPanel 
+                  completedTodos={completedTodos} 
+                  onRestore={restoreTodo} 
+                  isMobile={isMobile}
+                  targetTasks={targetTasks}
+                  onTargetTasksChange={setTargetTasks}
+                  onSaveRecap={handleSaveRecap}
+                />
+              )}
+            </div>
           </div>
         </div>
       </DragDropContext>
