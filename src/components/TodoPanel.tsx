@@ -32,6 +32,7 @@ interface TodoPanelProps {
   saveEdit: (id: number) => void;
   deleteTodo: (id: number) => void;
   addSection: () => void;
+  addEmptyTodo: () => void;
 }
 
 export const TodoPanel: React.FC<TodoPanelProps> = ({
@@ -50,7 +51,8 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
   handleEditKeyDown,
   saveEdit,
   deleteTodo,
-  addSection
+  addSection,
+  addEmptyTodo
 }) => {
   const { t } = useTranslation();
   // 狀態管理：是否有項目正在被拖動
@@ -123,10 +125,17 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({
         </Droppable>
         {/* 添加新分類的按鈕，僅在非拖動狀態下顯示 */}
         {todos.length > 0 && !isDragging && (
-          <div className="ml-7">
+          <div className="ml-7 flex space-x-2 mt-4">
             <Button 
               variant="ghost" 
-              className="w-full mt-2 text-muted-foreground hover:text-foreground transition-colors"
+              className="flex-1 text-muted-foreground hover:text-foreground transition-colors"
+              onClick={addEmptyTodo}
+            >
+              + {t('addTask')}
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="flex-1 text-muted-foreground hover:text-foreground transition-colors"
               onClick={addSection}
             >
               + {t('addSection')}

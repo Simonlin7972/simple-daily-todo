@@ -63,5 +63,7 @@
   "userName": "User name",
   "enterUserName": "Enter your name",
   "addUserName": "Add user name",
-  "setUserName": "Set user name"
+  "setUserName": "Set user name",
+  "addTask": "Add task",
+  "newTask": "Enter your task"
 }

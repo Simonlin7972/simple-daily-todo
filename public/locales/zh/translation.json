@@ -67,5 +67,7 @@
   "userName": "使用者名稱",
   "enterUserName": "輸入你的名稱",
   "addUserName": "新增使用者名稱",
-  "setUserName": "設定使用者名稱"
+  "setUserName": "設定使用者名稱",
+  "addTask": "新增任務",
+  "newTask": "輸入你的新任務"
 }

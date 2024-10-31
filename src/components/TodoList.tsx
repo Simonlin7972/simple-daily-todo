@@ -263,6 +263,16 @@ export function TodoList() {
     };
   }, [todos, completedTodos, targetTasks]);
 
+  const addEmptyTodo = () => {
+    const newTodo = {
+      id: Date.now(),
+      text: t('newTask'), // 使用翻譯的文字
+      completed: false,
+      type: 'todo' as const
+    };
+    setTodos(prevTodos => [...prevTodos, newTodo]);
+  };
+
   return (
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -286,6 +296,7 @@ export function TodoList() {
               saveEdit={saveEdit}
               deleteTodo={deleteTodo}
               addSection={addSection}
+              addEmptyTodo={addEmptyTodo}
             />
             {completedTodos.length > 0 && (
               <CompletedPanel 
