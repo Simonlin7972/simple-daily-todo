@@ -47,7 +47,7 @@ export function TodoList() {
     React.Dispatch<React.SetStateAction<number>>
   ];
 
-  const isMobile = window.innerWidth < 768; // 簡單的移動設備檢測
+  const isMobile = window.innerWidth < 512; // 簡單的移動設備檢測
 
   const startTitleAnimation = useCallback(() => {
     let index = 0;

@@ -4,9 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { GripVertical, Trash2, Edit2, Play, Pause } from 'lucide-react';
+import { GripVertical, Trash2, Edit2, Play, Pause, Ellipsis } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Badge } from "@/components/ui/badge";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface TodoItemProps {
   todo: {
@@ -50,8 +55,9 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   setDraggingItemId,
   onStartTimer
 }) => {
-  const {} = useTranslation();
+  const { t } = useTranslation();
   const [timerInfo, setTimerInfo] = useState<{ time: number; isRunning: boolean } | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   useEffect(() => {
     const handleTimerUpdate = (event: CustomEvent<{ taskText: string; time: number; isRunning: boolean }>) => {
@@ -98,6 +104,47 @@ export const TodoItem: React.FC<TodoItemProps> = ({
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
+
+ // mobile 上的 action sheet 按鈕
+  const ActionButtons = () => (
+    <>
+      {todo.type === 'todo' && (
+        <Button 
+          variant="ghost" 
+          size="lg" 
+          onClick={handleTimerClick}
+          className="w-full justify-start"
+        >
+          {timerInfo?.isRunning ? <Pause className="mr-2 h-4 w-4" /> : <Play className="mr-2 h-4 w-4" />}
+          {timerInfo?.isRunning ? t('pauseTimer') : t('startTimer')}
+        </Button>
+      )}
+      <Button 
+        variant="ghost" 
+        size="lg" 
+        onClick={(e) => {
+          startEditing(todo.id, todo.text, e);
+          setIsSheetOpen(false);
+        }}
+        className="w-full justify-start"
+      >
+        <Edit2 className="mr-2 h-4 w-4" />
+        {t('edit')}
+      </Button>
+      <Button 
+        variant="ghost" 
+        size="lg" 
+        onClick={() => {
+          deleteTodo(todo.id);
+          setIsSheetOpen(false);
+        }}
+        className="w-full justify-start text-red-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
+      >
+        <Trash2 className="mr-2 h-4 w-4" />
+        {t('delete')}
+      </Button>
+    </>
+  );
 
   return (
     <Draggable key={todo.id} draggableId={todo.id.toString()} index={index}>
@@ -168,21 +215,59 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                   )}
                 </div>
                 <div className={`flex-shrink-0 w-32 flex justify-end ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'invisible' : 'invisible group-hover:visible'} transition-opacity duration-200`}>
-                  {todo.type === 'todo' && (
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      onClick={handleTimerClick}
-                    >
-                      {timerInfo?.isRunning ? <Pause size={16} /> : <Play size={16} />}
-                    </Button>
+                  {isMobile ? (
+                    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                      <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <Ellipsis size={16} />
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side="bottom" className="p-2">
+                        <div className="grid gap-2 pt-8 pb-4">
+                          <ActionButtons />
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+                  ) : (
+                    <>
+                      {todo.type === 'todo' && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={handleTimerClick}
+                            >
+                              {timerInfo?.isRunning ? <Pause size={16} /> : <Play size={16} />}
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{timerInfo?.isRunning ? t('pauseTimer') : t('startTimer')}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
+                            <Edit2 size={16} />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{t('edit')}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
+                            <Trash2 size={16} />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{t('delete')}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </>
                   )}
-                  <Button variant="ghost" size="icon" onClick={(e) => startEditing(todo.id, todo.text, e)}>
-                    <Edit2 size={16} />
-                  </Button>
-                  <Button variant="ghost" size="icon" onClick={() => deleteTodo(todo.id)}>
-                    <Trash2 size={16} />
-                  </Button>
                 </div>
               </div>
             </li>
