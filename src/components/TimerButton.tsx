@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Play, Pause, RotateCcw } from "lucide-react";
-import { useTranslation } from 'react-i18next';
 
 export function TimerButton() {
-  const { t } = useTranslation();
   const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState(0);
   const [currentTask, setCurrentTask] = useState<string>('');

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { GripVertical, Trash2, Edit2, Check, Play, Pause } from 'lucide-react';
+import { GripVertical, Trash2, Edit2, Play, Pause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Badge } from "@/components/ui/badge";
 
