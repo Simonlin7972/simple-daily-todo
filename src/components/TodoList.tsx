@@ -285,7 +285,7 @@ export function TodoList() {
  
           <div className="container mx-auto px-4">
           <SharedTabs />
-            <div className={`grid ${completedTodos.length > 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:place-items-center'} gap-4 max-w-8xl mx-auto`}>
+            <div className={`grid ${completedTodos.length > 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:place-items-center'} gap-4 mx-auto`}>
               <TodoPanel
                 todos={todos}
                 newTodo={newTodo}

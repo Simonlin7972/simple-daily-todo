@@ -14,9 +14,15 @@ interface MobileMenuProps {
 export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [open, setOpen] = React.useState(false);
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+    setOpen(false); // 關閉選單
+  };
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
           <Menu />
@@ -30,9 +36,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime }) => {
           <Button
             variant="outline"
             className="w-full justify-center"
-            onClick={() => {
-              navigate('/profile');
-            }}
+            onClick={handleProfileClick}
           >
             <UserCircle className="mr-2 h-4 w-4" />
             {t('profile')}

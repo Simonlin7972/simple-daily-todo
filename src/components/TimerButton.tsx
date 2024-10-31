@@ -79,14 +79,14 @@ export function TimerButton() {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-3">
       <Button
         variant="outline"
         size="icon"
         onClick={toggleTimer}
         className={isRunning ? 'text-yellow-500' : 'text-green-500'}
       >
-        {isRunning ? <Pause size={20} /> : <Play size={20} />}
+        {isRunning ? <Pause size={24} /> : <Play size={24} />}
       </Button>
       <Button
         variant="outline"
@@ -94,11 +94,11 @@ export function TimerButton() {
         onClick={resetTimer}
         disabled={time === 0}
       >
-        <RotateCcw size={20} />
+        <RotateCcw size={24} />
       </Button>
-      <span className="min-w-[80px] text-lg font-mono">{formatTime(time)}</span>
+      <span className="min-w-[80px] text-2xl font-mono">{formatTime(time)}</span>
       {currentTask && (
-        <span className="text-sm text-muted-foreground ml-2">{currentTask}</span>
+        <span className="text-md text-muted-foreground ml-2">{currentTask}</span>
       )}
     </div>
   );
