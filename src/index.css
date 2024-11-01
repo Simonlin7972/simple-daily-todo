@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import './components/TodoList.css'; */
-
 :root {
   --background: 0 0% 100%;
   --background-dark: 222.2 84% 4.9%;

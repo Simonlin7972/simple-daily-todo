@@ -37,7 +37,7 @@ export const DailyReview: React.FC = () => {
   };
 
   return (
-    <div className={`font-${font} container mx-auto px-4 py-4`}>
+    <div className={`font-${font} container max-w-2xl mx-auto px-4 py-4`}>
       <SharedTabs />
       {recaps.map((recap: RecapData) => (
         <RecapCard 

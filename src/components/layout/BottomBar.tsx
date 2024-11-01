@@ -10,7 +10,7 @@ export function BottomBar() {
       <div>
         <TimerButton />
       </div>
-      <div className="space-x-2">
+      <div className="hidden md:flex space-x-2">
         <Button variant="outline" id="addDataBtn">{t('addData')}</Button>
         <Button variant="outline" id="resetBtn">{t('reset')}</Button>
       </div>

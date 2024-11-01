@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MobileMenu } from "../MobileMenu";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { UserCircle } from "lucide-react";
+import { generateSampleTodos } from '../../utils/todoUtils';
 
 interface TopNavBarProps {
   currentTime: string;
@@ -12,6 +13,17 @@ interface TopNavBarProps {
 export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const [setTodos] = useState<Todo[]>([]);
+  const [setCompletedTodos] = useState<Todo[]>([]);
+
+  const addSampleData = () => {
+    generateSampleTodos(setTodos, setCompletedTodos);
+  };
+
+  const onReset = () => {
+    // Logic to reset data
+  };
 
   return (
     <header className="sticky pl-1 pr-0 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
@@ -42,7 +54,13 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
               <span className="sr-only">{t('profile')}</span>
             </Button>
           </div>
-          <MobileMenu currentTime={currentTime} />
+          <MobileMenu 
+            currentTime={currentTime} 
+            onAddData={addSampleData} 
+            onReset={onReset} 
+            setTodos={setTodos} 
+            setCompletedTodos={setCompletedTodos} 
+          />
         </div>
       </div>
     </header>

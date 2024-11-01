@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SharedTabs } from './SharedTabs';
+import '../App.css';
 
-import './TodoList.css';
 import sampleData from '../sampleData.json';
 import { useTranslation } from 'react-i18next';
 
@@ -287,7 +287,6 @@ export function TodoList() {
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex flex-col justify-center h-full py-4">
- 
           <div className={`container mx-auto px-4 ${completedTodos.length === 0 ? 'max-w-2xl' : ''}`}>
           <SharedTabs />
             <div className={`grid ${completedTodos.length > 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:place-items-center'} gap-4 mx-auto`}>

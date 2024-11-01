@@ -107,7 +107,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
           variant="ghost" 
           size="lg" 
           onClick={handleTimerClick}
-          className="w-full justify-start"
+          className="w-full justify-start p-4"
         >
           {timerInfo?.isRunning ? <Pause className="mr-2 h-4 w-4" /> : <Play className="mr-2 h-4 w-4" />}
           {timerInfo?.isRunning ? t('pauseTimer') : t('startTimer')}
@@ -120,7 +120,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
           startEditing(todo.id, todo.text, e);
           setIsSheetOpen(false);
         }}
-        className="w-full justify-start"
+        className="w-full justify-start p-4"
       >
         <Edit2 className="mr-2 h-4 w-4" />
         {t('edit')}
@@ -132,7 +132,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
           deleteTodo(todo.id);
           setIsSheetOpen(false);
         }}
-        className="w-full justify-start text-red-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
+        className="w-full justify-start p-4 text-red-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
       >
         <Trash2 className="mr-2 h-4 w-4" />
         {t('delete')}
@@ -216,7 +216,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                           <Ellipsis size={16} />
                         </Button>
                       </SheetTrigger>
-                      <SheetContent side="bottom" className="p-2">
+                      <SheetContent side="bottom" className="p-2 rounded-xl">
                         <div className="grid gap-2 pt-8 pb-4">
                           <ActionButtons />
                         </div>
