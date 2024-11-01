@@ -79,7 +79,7 @@
 
 /* 在文件末尾添加以下樣式 */
 html {
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 /* 添加以下樣式來應用字體 */

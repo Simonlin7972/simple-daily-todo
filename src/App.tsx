@@ -56,10 +56,10 @@ function App() {
     <Router>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <FontProvider>
-          <div className="font-sans antialiased bg-background text-foreground flex flex-col">
+          <div className="font-sans antialiased bg-background text-foreground flex flex-col bg-gradient-to-b from-background to-muted min-h-screen pb-24">
           <TopNavBar currentTime={formatTime(currentTime)} />
         
-            <div className="main-content min-h-screen bg-gradient-to-b from-background to-muted">
+            <div className="main-content">
               <Routes>
                 <Route path="/" element={<TodoList />} />
                 <Route path="/daily-review" element={<DailyReview />} />

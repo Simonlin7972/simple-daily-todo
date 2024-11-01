@@ -16,11 +16,6 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.main-content {
-  padding-top: 16px;
-  padding-bottom: 120px;
-}
-
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
