@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MobileMenu } from "./MobileMenu";
+import { MobileMenu } from "../MobileMenu";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { UserCircle } from "lucide-react";

@@ -11,6 +11,9 @@ import { toast } from 'sonner';
 import { CompletedPanel } from './CompletedPanel';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { TodoPanel } from './TodoPanel';
+import { Button } from "@/components/ui/button";
+import { Focus } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 interface Todo {
   id: number;
@@ -278,6 +281,8 @@ export function TodoList() {
     window.dispatchEvent(event);
   };
 
+  const navigate = useNavigate();
+
   return (
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -319,6 +324,13 @@ export function TodoList() {
             </div>
           </div>
         </div>
+        {/* Focus Mode 浮動按鈕 */}
+        <Button
+          className="fixed bottom-24 right-4 rounded-full w-12 h-12 shadow-lg"
+          onClick={() => navigate('/focus')}
+        >
+          <Focus className="h-6 w-6" />
+        </Button>
       </DragDropContext>
     </TooltipProvider>
   );

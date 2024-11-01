@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { TodoList } from './components/TodoList'
 import { ThemeProvider } from "./components/theme-provider";
-import { TopNavBar } from "./components/TopNavBar"
-import { BottomBar } from "./components/BottomBar"
+import { TopNavBar } from './components/layout/TopNavBar';
+import { BottomBar } from './components/layout/BottomBar';
 import { DailyReview } from './components/DailyReview'
 import { Profile } from './components/Profile'
 import './App.css'
@@ -13,6 +13,7 @@ import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, C
 import { FontProvider } from './contexts/FontContext';
 import RepeatTodoManagement from './pages/RepeatTodoManagement';
 import TodoHistory from './pages/TodoHistory';
+import { FocusPage } from './pages/FocusPage';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -55,18 +56,21 @@ function App() {
     <Router>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <FontProvider>
-          <div className="min-h-screen font-sans antialiased bg-background text-foreground flex flex-col">
-            <TopNavBar currentTime={formatTime(currentTime)} />
-            <main className="flex-grow w-full py-4 pb-28 bg-gradient-to-b from-background to-muted">
+          <div className="font-sans antialiased bg-background text-foreground flex flex-col">
+          <TopNavBar currentTime={formatTime(currentTime)} />
+        
+            <div className="main-content min-h-screen bg-gradient-to-b from-background to-muted">
               <Routes>
                 <Route path="/" element={<TodoList />} />
                 <Route path="/daily-review" element={<DailyReview />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/repeat-todo-management" element={<RepeatTodoManagement />} />
+                <Route path="/focus" element={<FocusPage />} />
                 <Route path="/todo-history" element={<TodoHistory />} />
+                <Route path="/repeat-todo-management" element={<RepeatTodoManagement />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
-            </main>
+            </div>
+            
             <BottomBar />
             <Toaster />
             <CommandDialog open={open} onOpenChange={setOpen}>

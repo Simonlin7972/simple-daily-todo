@@ -16,7 +16,7 @@ export function TimerButton() {
 
     const handleToggleTimer = (event: CustomEvent<{ taskText: string }>) => {
       if (event.detail.taskText === currentTask) {
-        setIsRunning(!isRunning);
+        setIsRunning(prev => !prev);
       }
     };
 
@@ -27,18 +27,11 @@ export function TimerButton() {
       window.removeEventListener('startTimer', handleStartTimer as EventListener);
       window.removeEventListener('toggleTimer', handleToggleTimer as EventListener);
     };
-  }, [currentTask, isRunning]);
+  }, [currentTask]);
 
   useEffect(() => {
-    // 發送狀態更新事件
-    window.dispatchEvent(new CustomEvent('timerStateUpdate', { 
-      detail: { 
-        taskText: currentTask,
-        isRunning 
-      } 
-    }));
-
     let interval: NodeJS.Timeout;
+
     if (isRunning) {
       interval = setInterval(() => {
         setTime((prevTime) => {
@@ -61,15 +54,15 @@ export function TimerButton() {
     };
   }, [isRunning, currentTask]);
 
-  const toggleTimer = () => {
-    setIsRunning(!isRunning);
-  };
-
   const resetTimer = () => {
     setIsRunning(false);
     setTime(0);
     setCurrentTask('');
     window.dispatchEvent(new CustomEvent('timerReset'));
+  };
+
+  const toggleTimer = () => {
+    setIsRunning(!isRunning);
   };
 
   const formatTime = (seconds: number) => {

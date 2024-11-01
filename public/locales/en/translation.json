@@ -66,5 +66,7 @@
   "setUserName": "Set user name",
   "addTask": "Add task",
   "newTask": "Enter your task",
-  "tasksCompletedCount": "Completed {{count}} tasks today"
+  "tasksCompletedCount": "Completed {{count}} tasks today",
+  "focusMode": "Focus Mode",
+  "complete": "Complete"
 }

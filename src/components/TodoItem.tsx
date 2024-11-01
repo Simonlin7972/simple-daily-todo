@@ -72,18 +72,12 @@ export const TodoItem: React.FC<TodoItemProps> = ({
       }
     };
 
-    const handleTimerReset = () => {
-      setTimerInfo(null);
-    };
-
     window.addEventListener('timerUpdate', handleTimerUpdate as EventListener);
     window.addEventListener('timerStateUpdate', handleTimerStateUpdate as EventListener);
-    window.addEventListener('timerReset', handleTimerReset);
 
     return () => {
       window.removeEventListener('timerUpdate', handleTimerUpdate as EventListener);
       window.removeEventListener('timerStateUpdate', handleTimerStateUpdate as EventListener);
-      window.removeEventListener('timerReset', handleTimerReset);
     };
   }, [todo.text]);
 

@@ -1,5 +1,5 @@
-import { Button } from "../components/ui/button";
-import { TimerButton } from "../components/TimerButton";
+import { Button } from "../ui/button";
+import { TimerButton } from "../TimerButton";
 import { useTranslation } from 'react-i18next';
 
 export function BottomBar() {
