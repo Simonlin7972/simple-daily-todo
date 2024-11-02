@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { TodoList } from './components/TodoList'
 import { ThemeProvider } from "./components/theme-provider";
 import { TopNavBar } from './components/layout/TopNavBar';

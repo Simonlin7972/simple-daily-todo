@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useNavigate } from 'react-router-dom';
 
-type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins';
+type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins' | 'montserrat';
 
 export const Profile: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -33,6 +33,7 @@ export const Profile: React.FC = () => {
     { value: 'open-sans', label: 'Open Sans' },
     { value: 'lato', label: 'Lato' },
     { value: 'poppins', label: 'Poppins' },
+    { value: 'montserrat', label: 'Montserrat' },
   ];
 
   const [isNameDialogOpen, setIsNameDialogOpen] = useState(false);
@@ -50,6 +51,10 @@ export const Profile: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--app-font-family', font);
+  }, [font]);
+
   return (
     <div className={`font-${font} max-w-2xl mx-auto px-4 pt-6 space-y-6`}>
       <Breadcrumb currentPage={t('profile')} />
@@ -57,7 +62,7 @@ export const Profile: React.FC = () => {
       {/* Settings Card */}
       <Card className="p-4">
         <CardHeader>
-          <CardTitle className="text-left text-5xl">Hello, {userName || "Simon!"}</CardTitle>
+          <CardTitle className="text-left text-4xl md:text-5xl">Hello, {userName || "Simon!"}</CardTitle>
         </CardHeader>
         <CardContent className="p-6 pt-2">
           <div className="space-y-6">
