@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom'
 import { TodoList } from './components/TodoList'
 import { ThemeProvider } from "./components/theme-provider";
 import { TopNavBar } from './components/layout/TopNavBar';
 import { BottomBar } from './components/layout/BottomBar';
 import { DailyReview } from './components/DailyReview'
 import { Profile } from './components/Profile'
+
 import './App.css'
 import './i18n'
 import { Toaster } from "@/components/ui/sonner"
@@ -14,11 +15,15 @@ import { FontProvider } from './contexts/FontContext';
 import RepeatTodoManagement from './pages/RepeatTodoManagement';
 import TodoHistory from './pages/TodoHistory';
 import { FocusPage } from './pages/FocusPage';
+import { CSSTransition } from 'react-transition-group';
+
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [open, setOpen] = useState(false)
   const [newTask, setNewTask] = useState("")
+  const showNavBar = location.pathname !== '/focus';
+  const showBottomBar = location.pathname !== '/focus';
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,8 +62,24 @@ function App() {
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <FontProvider>
           <div className="font-sans antialiased bg-background text-foreground flex flex-col bg-gradient-to-b from-background to-muted min-h-screen pb-24">
-          <TopNavBar currentTime={formatTime(currentTime)} />
-        
+          {/* 如果當前路徑不是 /focus，則顯示 TopNavBar */}
+          
+          <CSSTransition
+            in={showNavBar}
+            timeout={200}
+            classNames="navbar"
+            unmountOnExit
+          >
+            <TopNavBar currentTime={formatTime(currentTime)} /> 
+          </CSSTransition>
+
+
+      {/* {location.pathname !== '/focus' && (
+              <TopNavBar currentTime={formatTime(currentTime)} />
+            )} */}
+      
+
+
             <div className="main-content">
               <Routes>
                 <Route path="/" element={<TodoList />} />
@@ -70,8 +91,20 @@ function App() {
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
-            
-            <BottomBar />
+
+            {/* {location.pathname !== '/focus' && (
+              <BottomBar />
+            )} */}
+<CSSTransition
+            in={showBottomBar}
+            timeout={200} 
+            classNames="bottombar"
+            unmountOnExit
+          >
+            <BottomBar /> 
+          </CSSTransition>
+
+
             <Toaster />
             <CommandDialog open={open} onOpenChange={setOpen}>
               <CommandInput 

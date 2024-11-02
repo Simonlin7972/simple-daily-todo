@@ -1,7 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
 #root {
   margin: 0 auto;
   text-align: center;
 }
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  overflow-y: hidden;
+}
+
+/* 初始隱藏 NavBar */
+.navbar-enter {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.navbar-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 300ms, opacity 300ms;
+}
+.navbar-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+.navbar-exit-active {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 300ms, opacity 300ms;
+}
+
+
+/* 初始進場狀態：BottomBar 從下方進入畫面 */
+.bottombar-enter {
+  transform: translateY(100%); /* 元素位於螢幕外底部 */
+  opacity: 0; /* 初始透明度 */
+}
+
+.bottombar-enter-active {
+  transform: translateY(0); /* 移動到螢幕內 */
+  opacity: 1; /* 完全不透明 */
+  transition: transform 300ms ease, opacity 300ms ease; /* 設定過渡時間與效果 */
+}
+
+/* 初始離場狀態：BottomBar 平滑地退出畫面 */
+.bottombar-exit {
+  transform: translateY(0); /* 元素在螢幕內 */
+  opacity: 1; /* 完全不透明 */
+}
+
+.bottombar-exit-active {
+  transform: translateY(100%); /* 元素移動到螢幕外底部 */
+  opacity: 0; /* 變為透明 */
+  transition: transform 300ms ease, opacity 300ms ease; /* 設定過渡時間與效果 */
+}
+
+
 
 .logo {
   height: 6em;

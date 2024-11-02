@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -80,6 +79,7 @@
 /* 在文件末尾添加以下樣式 */
 html {
   overflow-y: hidden;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* 添加以下樣式來應用字體 */

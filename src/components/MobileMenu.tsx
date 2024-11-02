@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 interface MobileMenuProps {
   currentTime: string;
@@ -18,6 +19,17 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime, onAddData, 
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) { // md breakpoint
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Run once on mount
 
   const handleProfileClick = () => {
     navigate('/profile');
