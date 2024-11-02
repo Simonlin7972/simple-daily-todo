@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "next-themes";
-import { Moon, Sun, ChevronRight, Languages, Palette, Repeat, History, Type, Heart, Pencil } from "lucide-react";
+import { Moon, Sun, TreePine, ChevronRight, Languages, Palette, Repeat, History, Type, Heart, Pencil } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -118,14 +118,18 @@ export const Profile: React.FC = () => {
               <div className="flex-grow flex justify-between items-center">
                 <h3 className="text-lg font-medium">{t('themeSettings')}</h3>
                 <Tabs defaultValue={theme} onValueChange={setTheme}>
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="light">
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="light" onClick={() => setTheme('light')}>
                       <Sun className="mr-2 h-4 w-4" />
                       {t('themeLight')}
                     </TabsTrigger>
-                    <TabsTrigger value="dark">
+                    <TabsTrigger value="dark" onClick={() => setTheme('dark')}>
                       <Moon className="mr-2 h-4 w-4" />
                       {t('themeDark')}
+                    </TabsTrigger>
+                    <TabsTrigger value="green-theme" onClick={() => setTheme('green-theme')}>
+                      <TreePine className="mr-2 h-4 w-4" />
+                      {t('themeGreen')}
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
@@ -134,27 +138,31 @@ export const Profile: React.FC = () => {
 
             <Separator className="my-4" />
 
-            {/* 文字設定 */}
-            <div className="flex items-center space-x-4">
-              <Type className="h-6 w-6 text-muted-foreground" />
-              <div className="flex-grow flex justify-between items-center">
-                <h3 className="text-lg font-medium">{t('fontSettings')}</h3>
-                <Select value={font} onValueChange={(value: Font) => setFont(value)}>
-                  <SelectTrigger className="w-[160px]">
-                    <SelectValue placeholder="Select font" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {fonts.map((font) => (
-                      <SelectItem key={font.value} value={font.value}>
-                        {font.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+            {/* Font Settings - Only show if language is English */}
+            {i18n.language === 'en' && (
+              <div className="flex items-center space-x-4">
+                <Type className="h-6 w-6 text-muted-foreground" />
+                <div className="flex-grow flex justify-between items-center">
+                  <h3 className="text-lg font-medium">{t('fontSettings')}</h3>
+                  <Select value={font} onValueChange={(value: string) => setFont(value as Font)}>
+                    <SelectTrigger className="w-[160px]">
+                      <SelectValue placeholder="Select font" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {fonts.map((font) => (
+                        <SelectItem key={font.value} value={font.value}>
+                          {font.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-            </div>
+            )}
 
-            <Separator className="my-4" />
+            {i18n.language === 'en' && (
+              <Separator className="my-4" />
+            )}
 
             {/* 每日重複待辦 */}
             <div className="flex items-center space-x-4">

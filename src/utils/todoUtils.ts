@@ -3,6 +3,13 @@ import sampleData from '../sampleData.json';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+  type: 'section' | 'todo';
+}
+
 export const generateSampleTodos = (setTodos: React.Dispatch<React.SetStateAction<Todo[]>>, setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>) => {
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language.startsWith('zh') ? 'zh' : 'en';

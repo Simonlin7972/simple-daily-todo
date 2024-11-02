@@ -11,11 +11,11 @@ interface MobileMenuProps {
   currentTime: string;
   onAddData: () => void;
   onReset: () => void;
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  // setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  // setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime, onAddData, onReset, setTodos, setCompletedTodos }) => {
+export const MobileMenu: React.FC<MobileMenuProps> = ({ currentTime, onAddData, onReset }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
