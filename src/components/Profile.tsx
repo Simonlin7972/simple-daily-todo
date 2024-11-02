@@ -22,9 +22,8 @@ export const Profile: React.FC = () => {
   const { font, setFont } = useFont();
   const navigate = useNavigate();
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'zh' : 'en';
-    i18n.changeLanguage(newLang);
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
   };
 
   const fonts = [
@@ -56,7 +55,7 @@ export const Profile: React.FC = () => {
   }, [font]);
 
   return (
-    <div className={`font-${font} max-w-2xl mx-auto px-4 pt-6 space-y-6`}>
+    <div className={`font-${font} max-w-2xl mx-auto px-4 pt-6 space-y-5`}>
       <Breadcrumb currentPage={t('profile')} />
       
       {/* Settings Card */}
@@ -101,10 +100,11 @@ export const Profile: React.FC = () => {
               <Languages className="h-6 w-6 text-muted-foreground" />
               <div className="flex-grow flex justify-between items-center">
                 <h3 className="text-lg font-medium">{t('languageSettings')}</h3>
-                <Tabs defaultValue={i18n.language} onValueChange={toggleLanguage}>
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="en">English</TabsTrigger>
-                    <TabsTrigger value="zh">繁體中文</TabsTrigger>
+                <Tabs defaultValue={i18n.language}>
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="en" onClick={() => handleLanguageChange('en')}>English</TabsTrigger>
+                    <TabsTrigger value="zh" onClick={() => handleLanguageChange('zh')}>繁體中文</TabsTrigger>
+                    <TabsTrigger value="ja" onClick={() => handleLanguageChange('ja')}>日本語</TabsTrigger>
                   </TabsList>
                 </Tabs>
               </div>
