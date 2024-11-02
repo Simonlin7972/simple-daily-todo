@@ -286,10 +286,10 @@ export function TodoList() {
   return (
     <TooltipProvider>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex flex-col justify-center h-full py-4 overflow-hidden">
-          <div className={`container mx-auto px-4 flex-grow ${completedTodos.length === 0 ? 'max-w-2xl' : ''}`}>
+        <div className="flex flex-col justify-center h-full py-4">
+          <div className={`w-full px-4 flex-grow ${completedTodos.length === 0 ? 'max-w-2xl mx-auto' : ''}`}>
           <SharedTabs />
-            <div className={`grid ${completedTodos.length > 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:place-items-center'} gap-4 mx-auto`}>
+            <div className={`grid ${completedTodos.length > 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-1 lg:place-items-center'} gap-4`}>
               <TodoPanel
                 todos={todos}
                 newTodo={newTodo}

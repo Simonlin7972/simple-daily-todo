@@ -27,9 +27,9 @@ export const CompletedItem: React.FC<CompletedItemProps> = ({ todo, index, onRes
           {...provided.dragHandleProps}
           className="flex items-center justify-between p-2 pl-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200"
         >
-          <div className="flex items-center flex-grow min-w-0 mr-2">
+          <div className="flex items-center flex-grow mr-2">
             <Check size={20} className="text-gray-300 mr-2 flex-shrink-0" />
-            <span className="text-sm line-through truncate">{todo.text}</span>
+            <span className="text-sm max-w-80 md:max-w-full line-through truncate">{todo.text}</span>
           </div>
           {isMobile ? (
             <Button variant="ghost" size="icon" onClick={() => onRestore(todo.id)} className="flex-shrink-0">

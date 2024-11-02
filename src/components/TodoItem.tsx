@@ -187,7 +187,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span 
-                          className={`${todo.completed ? 'line-through text-muted-foreground' : ''} text-sm flex-grow text-left ${todo.type === 'section' ? 'font-bold text-sm pl-2' : ''} cursor-pointer truncate flex items-center`}
+                          className={`${todo.completed ? 'line-through max-w-80 md:max-w-full text-truncate text-muted-foreground' : ''} text-sm flex-grow text-left ${todo.type === 'section' ? 'font-bold text-sm pl-2' : ''} cursor-pointer truncate flex items-center`}
                           onClick={(e) => startEditing(todo.id, todo.text, e)}
                         >
                           
@@ -208,7 +208,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
                     </Tooltip>
                   )}
                 </div>
-                <div className={`flex-shrink-0 w-32 flex justify-end ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'invisible' : 'invisible group-hover:visible'} transition-opacity duration-200`}>
+                <div className={`flex-shrink-0 flex justify-end ${editingId === todo.id ? '' : isMobile ? '' : isDragging ? 'invisible' : 'invisible group-hover:visible'} transition-opacity duration-200`}>
                   {isMobile ? (
                     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                       <SheetTrigger asChild>
