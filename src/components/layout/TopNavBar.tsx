@@ -26,7 +26,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({ currentTime }) => {
   };
 
   return (
-    <header className="sticky pl-1 pr-0 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <header className="fixed pl-1 pr-0 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="relative flex h-16 items-center px-4">
         {/* Left side placeholder to balance the layout */}
         <div className="flex-1 flex items-center">

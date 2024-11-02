@@ -61,7 +61,7 @@ function App() {
     <Router>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <FontProvider>
-          <div className="font-sans antialiased bg-background text-foreground flex flex-col bg-gradient-to-b from-background to-muted min-h-screen pb-24">
+          <div className="font-sans antialiased bg-background text-foreground flex flex-col bg-gradient-to-b from-background to-muted min-h-screen pb-12">
           {/* 如果當前路徑不是 /focus，則顯示 TopNavBar */}
           
           <CSSTransition
@@ -80,7 +80,7 @@ function App() {
       
 
 
-            <div className="main-content">
+            <div className="main-content py-16">
               <Routes>
                 <Route path="/" element={<TodoList />} />
                 <Route path="/daily-review" element={<DailyReview />} />
