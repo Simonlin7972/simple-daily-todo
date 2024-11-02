@@ -59,15 +59,20 @@ export const FocusPage: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center mt-24">
+    <div className="flex justify-center mt-12 md:mt-32 mx-6">
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center mb-12">
-          <span className="text-lg mb-4 text-muted-foreground">進行中任務</span>
-          <span className="text-3xl">{currentTask}</span>
+          {/* 進行中任務文字顯示 */}
+          {currentTask && (
+            <>
+              <span className="text-lg mb-2 text-muted-foreground">進行中任務</span>
+              <span className="text-2xl md:text-3xl">{currentTask}</span>
+            </>
+          )}
         </div>
         {/* 圓形計時器 */}
         <div className="w-96 h-96 rounded-full border-2 bg-muted border-primary flex flex-col items-center justify-center mb-12">
-          <span className="text-7xl font-mono mb-6">{formatTime(time)}</span>
+          <span className="text-7xl font-mono mb-3 mt-4">{formatTime(time)}</span>
           
           {/* 計時器控制按鈕 */}
           <div className="flex space-x-4">
