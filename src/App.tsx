@@ -17,6 +17,7 @@ import TodoHistory from './pages/TodoHistory';
 import { FocusPage } from './pages/FocusPage';
 import { CSSTransition } from 'react-transition-group';
 
+export type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins' | 'montserrat';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());

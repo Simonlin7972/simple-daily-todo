@@ -14,7 +14,9 @@ import { Input } from "@/components/ui/input";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useNavigate } from 'react-router-dom';
 
-type Font = 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins' | 'montserrat';
+interface FontType {
+  value: 'inter' | 'roboto' | 'open-sans' | 'lato' | 'poppins' | 'montserrat'; // Ensure all font values are included
+}
 
 export const Profile: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -144,13 +146,13 @@ export const Profile: React.FC = () => {
                 <Type className="h-6 w-6 text-muted-foreground" />
                 <div className="flex-grow flex justify-between items-center">
                   <h3 className="text-lg font-medium">{t('fontSettings')}</h3>
-                  <Select value={font} onValueChange={(value: string) => setFont(value as Font)}>
+                  <Select value={font} onValueChange={(value: string) => setFont(value as FontType)}>
                     <SelectTrigger className="w-[160px]">
                       <SelectValue placeholder="Select font" />
                     </SelectTrigger>
                     <SelectContent>
                       {fonts.map((font) => (
-                        <SelectItem key={font.value} value={font.value}>
+                        <SelectItem key={font.value} value={font.value} onClick={() => setFont(font.value as FontType)}>
                           {font.label}
                         </SelectItem>
                       ))}

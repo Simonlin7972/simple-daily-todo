@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { customToast } from "@/components/ui/sonner";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -80,7 +81,7 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
       onMouseEnter={() => setIsHovered(true)} // 懸停時設置狀態
       onMouseLeave={() => setIsHovered(false)} // 離開時重置狀態
     >
-      <CardHeader className="pb-0">
+      <CardHeader className="">
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <div className="flex items-center mb-3">
@@ -123,13 +124,17 @@ export const RecapCard: React.FC<RecapCardProps> = ({ recap, onSave, onDelete })
           )}
         </div>
       </CardHeader>
+      <div className="px-6">
+        <Separator className="" />
+      </div>
+
       <CardContent>
         {isEditing ? (
           <>
             <Textarea
               value={editedText}
               onChange={(e) => setEditedText(e.target.value)}
-              className="min-h-[200px] m-2 mb-4 mt-8 p-4"
+              className="min-h-[200px] m-2 mb-4 p-4"
             />
             <div className="flex justify-between mb-4">
               <div className="flex space-x-2">
